@@ -1,2 +1,10 @@
-<p>user works!</p>
-<a href="/create">Create new User</a>
+<div *ngFor="let item of output; index as i">
+  <div class="item">
+    <div class="content">
+      <ol>User: {{item.username}}</ol>
+    </div>
+  </div>
+</div>
+<div>
+  <button [routerLink]="['/create']">Create new user</button>
+</div>
