@@ -1,0 +1,37 @@
+<h2>User Registration</h2>
+<form (ngSubmit)="createUser()" [formGroup]="data" class="row justify-content-md-center">
+  <div class="form-group row">
+    <label class="col-md-2 col-form-label">Username</label>
+    <div class="col-md-10">
+      <input class="form-control" formControlName="username" id="name" minlength="6"
+             required type="text">
+      <div *ngIf="data.get('username').hasError('required') && data.get('username').touched" class="alert alert-danger"
+           role="alert">
+        Username must be filled!
+      </div>
+      <div *ngIf="data.get('username').hasError('minlength') && data.get('username').touched" class="alert alert-danger"
+           role="alert">
+        Username must have at least 6 characters
+      </div>
+    </div>
+  </div>
+  <div class="form-group row">
+    <label class="col-md-2 col-form-label">Password</label>
+    <div class="col-md-10">
+      <input class="form-control" formControlName="password" required
+             type="password">
+      <div *ngIf="data.controls.password?.errors?.required
+         && data.controls.password?.touched" class="col alert alert-danger" role="alert"
+           style="color: red">
+        Pass is required
+      </div>
+    </div>
+  </div>
+  <div class="form-group row">
+    <label class="col-md-2 col-form-label"></label>
+    <div class="col-md-10">
+      <h5>Welcome to the Mos !!</h5>
+    </div>
+    <input type="submit" value="submit">
+  </div>
+</form>
