@@ -6,11 +6,13 @@ import {UserComponent} from './user/user.component';
 import {AppRoutingModule} from './app-routing.module';
 import {ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
+import {UserCreateComponent} from './user-create/user-create.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    UserComponent
+    UserComponent,
+    UserCreateComponent
   ],
   imports: [
     BrowserModule,
