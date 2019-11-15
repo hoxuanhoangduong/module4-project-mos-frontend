@@ -1,0 +1,17 @@
+<div class="fixed-top">
+  <app-header></app-header>
+  <app-navbar (logoutAction)="logout()" [isLoggedIn]="isLoggedIn" [username]="username"></app-navbar>
+</div>
+<div class="container-fluid" style="margin-top:12rem">
+  <div class="row">
+    <div class="col-sm-3">
+      <app-sidebar></app-sidebar>
+    </div>
+    <div class="col-sm-9">
+      <router-outlet (activate)="onActivate($event);"></router-outlet>
+    </div>
+    <div style="height: 900px">
+      content
+    </div>
+  </div>
+</div>

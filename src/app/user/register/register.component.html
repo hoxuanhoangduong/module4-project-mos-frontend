@@ -1,0 +1,44 @@
+<div class="col-md-6 offset-md-3 mt-5">
+  <div class="card">
+    <h3 class="card-header">Register</h3>
+    <div class="card-body">
+      <form (ngSubmit)="onSubmit()" [formGroup]="registerForm">
+        <div class="form-group">
+          <label for="username"><i class="fas fa-users"></i>Username</label>
+          <input class="form-control" formControlName="username" id="username" type="text"/>
+        </div>
+        <div class="form-group">
+          <label for="password"><i class="fas fa-key"></i>Password</label>
+          <input class="form-control" formControlName="password" id="password" type="password"/>
+        </div>
+
+        <div class="form-group">
+          <label for="gender"> <i class="fas fa-genderless"></i>Gender</label>
+          <input class="form-control" formControlName="username" id="gender" type="text"/>
+        </div>
+
+        <div class="form-group">
+          <label for="birthDate"><i class="fas fa-table"></i>BirthDate</label>
+          <input class="form-control" formControlName="username" id="birthDate" type="date"/>
+        </div>
+
+        <div class="form-group">
+          <label for="phoneNumber"><i class="fas fa-phone"></i>PhoneNumber</label>
+          <input class="form-control" formControlName="username" id="phoneNumber" type="text"/>
+        </div>
+
+        <div class="form-group">
+          <label for="email"><i class="fas fa-envelope-square">Email</i></label>
+          <input class="form-control" formControlName="username" id="email" type="text"/>
+        </div>
+
+
+        <button [disabled]="loading" class="btn btn-primary">
+          <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+          Register
+        </button>
+        <div *ngIf="error" class="alert alert-danger mt-3 mb-0">{{error}}</div>
+      </form>
+    </div>
+  </div>
+</div>
