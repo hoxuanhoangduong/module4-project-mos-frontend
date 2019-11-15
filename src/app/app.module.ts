@@ -1,26 +1,35 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 
-import {AppComponent} from './app.component';
-import {UserComponent} from './user/user.component';
 import {AppRoutingModule} from './app-routing.module';
-import {ReactiveFormsModule} from '@angular/forms';
-import {HttpClientModule} from '@angular/common/http';
-import {UserCreateComponent} from './user-create/user-create.component';
+import {AppComponent} from './app.component';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
+import {UserModule} from './user/user.module';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {JwtInterceptor} from './helper/jwt.interceptor';
 
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {ReactiveFormsModule} from '@angular/forms';
+
+// @ts-ignore
 @NgModule({
   declarations: [
-    AppComponent,
-    UserComponent,
-    UserCreateComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    NgbModule,
+    UserModule,
+    BrowserAnimationsModule,
+    ReactiveFormsModule
   ],
-  providers: [],
+  providers: [
+    {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
+  ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+
+export class AppRootModule {
+}

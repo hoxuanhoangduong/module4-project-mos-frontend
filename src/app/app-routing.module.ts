@@ -1,21 +1,16 @@
-import {RouterModule, Routes} from '@angular/router';
 import {NgModule} from '@angular/core';
-import {UserComponent} from './user/user.component';
-import {UserCreateComponent} from './user-create/user-create.component';
+import {RouterModule, Routes} from '@angular/router';
 
 const routes: Routes = [
-  {
-    path: 'home',
-    component: UserComponent
-  },
-  {
-    path: 'create',
-    component: UserCreateComponent
-  }
+  {path: '', loadChildren: () => import('./user/user.module').then(mod => mod.UserModule)},
+  {path: 'admin', loadChildren: () => import('./admin/admin.module').then(mod => mod.AdminModule)},
+  {path: '**', redirectTo: ''}
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, {
+    onSameUrlNavigation: 'reload'
+  })],
   exports: [RouterModule]
 })
 export class AppRoutingModule {
