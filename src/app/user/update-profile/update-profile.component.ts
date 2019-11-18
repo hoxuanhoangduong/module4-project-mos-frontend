@@ -82,8 +82,9 @@ export class UpdateProfileComponent implements OnInit {
   }
 
   onSubmit() {
-    this.formData.append('user', new Blob([JSON.stringify(this.updateForm.value)], {type: 'application/json'}));
-    this.userService.updateProfile(this.formData, this.currentUser.id).subscribe(
+    this.submitted = true;
+    // this.formData.append('user', new Blob([JSON.stringify(this.updateForm.value)], {type: 'application/json'}));
+    this.userService.updateProfile(this.updateForm.value, this.currentUser.id).subscribe(
       (event: HttpEvent<any>) => {
         this.userService.getProfile();
         if (this.displayProgress(event, this.progress)) {
@@ -92,7 +93,7 @@ export class UpdateProfileComponent implements OnInit {
         }
       },
       error => {
-        // console.log(error);
+        console.log(error);
         this.error = true;
         this.message = 'Failed to update profile';
       }
