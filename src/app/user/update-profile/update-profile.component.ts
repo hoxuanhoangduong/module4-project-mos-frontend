@@ -22,8 +22,6 @@ export class UpdateProfileComponent implements OnInit {
   file: any;
   formData = new FormData();
   message: string;
-  isImageFileChoosen = false;
-  imageFileName = '';
   progress: Progress = {value: 0};
 
   // tslint:disable-next-line:max-line-length
@@ -85,7 +83,6 @@ export class UpdateProfileComponent implements OnInit {
 
   onSubmit() {
     this.formData.append('user', new Blob([JSON.stringify(this.updateForm.value)], {type: 'application/json'}));
-    this.formData.append('avatar', this.file);
     this.userService.updateProfile(this.formData, this.currentUser.id).subscribe(
       (event: HttpEvent<any>) => {
         this.userService.getProfile();
@@ -95,7 +92,7 @@ export class UpdateProfileComponent implements OnInit {
         }
       },
       error => {
-        console.log(error);
+        // console.log(error);
         this.error = true;
         this.message = 'Failed to update profile';
       }
