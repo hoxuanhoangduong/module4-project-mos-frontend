@@ -7,16 +7,17 @@ import {HomeComponent} from './home/home.component';
 import {RegisterComponent} from './register/register.component';
 import {UserComponent} from './user/user.component';
 import {SharedModule} from '../shared/shared.module';
+import {UpdateProfileComponent} from './update-profile/update-profile.component';
 
 @NgModule({
-  declarations: [HomeComponent, LoginComponent, RegisterComponent, UserComponent],
+  declarations: [HomeComponent, LoginComponent, RegisterComponent, UserComponent, UpdateProfileComponent],
   imports: [
     CommonModule,
     ReactiveFormsModule,
     UserRoutingModule,
     SharedModule
   ],
-  exports: [HomeComponent, LoginComponent, RegisterComponent, UserComponent]
+  exports: [HomeComponent, LoginComponent, RegisterComponent, UserComponent, UpdateProfileComponent]
 })
 export class UserModule {
 }

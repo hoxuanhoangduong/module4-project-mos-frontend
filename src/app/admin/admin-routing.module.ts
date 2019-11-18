@@ -16,10 +16,6 @@ const routes: Routes = [
     path: '', component: AdminComponent, canActivateChild: [], children: [
       {path: 'dashboard', component: DashboardComponent},
       // tslint:disable-next-line:max-line-length
-      {
-        path: 'user-management',
-        loadChildren: () => import('../user-management/user-management.module').then(mod => mod.UserManagementModule)
-      }
     ]
   }
 ];

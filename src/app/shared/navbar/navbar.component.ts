@@ -28,5 +28,4 @@ export class NavbarComponent implements OnInit {
   logoutClick() {
     this.logoutAction.emit();
   }
-
 }

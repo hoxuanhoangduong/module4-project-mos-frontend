@@ -5,6 +5,7 @@ import {LoginComponent} from './login/login.component';
 import {RegisterComponent} from './register/register.component';
 import {UserComponent} from './user/user.component';
 import {AuthGuard} from '../guard/auth.guard';
+import {UpdateProfileComponent} from './update-profile/update-profile.component';
 
 const routes: Routes = [
   {
@@ -17,6 +18,7 @@ const routes: Routes = [
       {path: 'home', component: HomeComponent, canActivate: [AuthGuard]},
       {path: 'login', component: LoginComponent},
       {path: 'register', component: RegisterComponent},
+      {path: 'update-profile', component: UpdateProfileComponent, canActivate: [AuthGuard]}
     ]
   }
 ];
