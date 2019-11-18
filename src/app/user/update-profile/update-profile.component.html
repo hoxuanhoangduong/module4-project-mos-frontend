@@ -50,6 +50,7 @@
 
   <div class="form-group">
     <label>
+      <i class="fas fa-restroom"></i> Gender
       <input [value]=true formControlName="gender" type="radio">
       <span>male</span>
     </label>
@@ -95,3 +96,5 @@
        class="alert mt-3 mb-0" style="color: red">{{message}}
   </div>
 </form>
+
+<pre>{{updateForm.value | json}}</pre>
