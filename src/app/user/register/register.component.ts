@@ -14,38 +14,60 @@ export class RegisterComponent implements OnInit {
   loading = false;
   submitted = false;
   returnUrl: string;
-  error = '';
+  error = false;
   file: File;
-  formData = new FormData();
   message: string;
 
   constructor(private fb: FormBuilder, private route: ActivatedRoute, private router: Router, private authService: AuthService,
               private userService: UserService) {
-  }
-
-  ngOnInit() {
     this.registerForm = this.fb.group({
-      username: ['', Validators.required],
-      password: ['', Validators.required],
-      firstName: ['', Validators.required],
-      lastName: ['', Validators.required],
+      username: ['', [Validators.required, Validators.minLength(5)]],
+      // tslint:disable-next-line:max-line-length
+      // password: ['', [Validators.required, Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[$@$!%*#?&])[A-Za-z\\d$@$!%*#?&]{8,}$'), Validators.minLength(6) ]],
+      password: ['', [Validators.required, Validators.minLength(6)]],
+      firstName: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(20)]],
+      lastName: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(20)]],
       phoneNumber: ['', Validators.required],
-      gender: [1, Validators.required],
+      gender: [true, Validators.required],
       birthDate: ['', Validators.required],
-      email: ['', Validators.required]
+      email: ['', Validators.email]
     });
   }
 
-  onSubmit() {
-    console.log(this.registerForm.value);
-    this.userService.createUser(this.registerForm.value).subscribe(
-      result => {
-        this.message = 'User created successfully!';
-      },
-      error => {
-        this.message = 'Failed to create user. Cause: ' + error.message;
-      }
-    );
+  get f() {
+    return this.registerForm.controls;
   }
 
+  ngOnInit() {
+
+  }
+
+  onSubmit() {
+    this.submitted = true;
+    this.userService.register(this.registerForm.value).subscribe(
+      () => {
+        this.error = false;
+        this.message = 'User created successfully!';
+        const navigation = setInterval(() => {
+          this.navigate();
+          clearTimeout(navigation);
+        }, 3000);
+      },
+      error => {
+        this.error = true;
+        this.message = 'Failed to register. Cause: ' + error.message;
+      }
+    );
+
+    // stop the process here if form is invalid
+    if (this.registerForm.invalid) {
+      return;
+    }
+  }
+
+  navigate() {
+    this.router.navigateByUrl('');
+  }
 }
+
+

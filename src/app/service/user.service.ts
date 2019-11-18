@@ -18,7 +18,7 @@ export class UserService {
     return this.http.get<User>(`${environment.apiUrl}/profile`);
   }
 
-  createUser(formGroup): Observable<HttpEvent<any>> {
+  register(formGroup): Observable<HttpEvent<any>> {
     return this.http.post<any>(`${environment.apiUrl}/register`, formGroup);
   }
 
@@ -29,3 +29,4 @@ export class UserService {
     });
   }
 }
+
