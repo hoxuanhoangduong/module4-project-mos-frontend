@@ -55,7 +55,7 @@ export class RegisterComponent implements OnInit {
       },
       error => {
         this.error = true;
-        this.message = 'Failed to register. Cause: ';
+        this.message = 'Failed to register';
       }
     );
 
