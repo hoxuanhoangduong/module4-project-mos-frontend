@@ -1,12 +1,12 @@
 <div class="fixed-top">
   <app-navbar (logoutAction)="logout()" [isLoggedIn]="isLoggedIn" [username]="username"></app-navbar>
 </div>
-<div class="container-fluid" style="margin-top:12rem">
+<div class="container-fluid" style="margin-top:7rem">
   <div class="row">
-    <div class="col-sm-3">
+    <div class="col-sm-1">
       <app-sidebar></app-sidebar>
     </div>
-    <div class="col-sm-9">
+    <div class="col-sm-11">
       <router-outlet (activate)="onActivate($event);"></router-outlet>
     </div>
     <div style="height: 900px">
