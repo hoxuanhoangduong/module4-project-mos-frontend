@@ -1,7 +1,8 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {Token} from '../../model/token';
 import {Router} from '@angular/router';
 import {AuthService} from '../../service/auth.service';
+import {Track} from 'ngx-audio-player';
 
 @Component({
   selector: 'app-user',
@@ -13,6 +14,19 @@ export class UserComponent implements OnInit {
   currentUser: Token;
   isLoggedIn: boolean;
 
+  @Input() msaapDisplayTitle = true;
+  @Input() msaapDisplayPlayList = true;
+  @Input() msaapPageSizeOptions = [6];
+  @Input() msaapDisplayVolumeControls = true;
+  @Input() expanded = false;
+
+  // Material Style Advance Audio Player Playlist
+  msaapPlaylist: Track[] = [
+    {
+      title: '',
+      link: ''
+    }
+  ];
 
   constructor(private router: Router, private authService: AuthService) {
   }

@@ -8,6 +8,7 @@ import {RegisterComponent} from './register/register.component';
 import {UserComponent} from './user/user.component';
 import {SharedModule} from '../shared/shared.module';
 import {UpdateProfileComponent} from './update-profile/update-profile.component';
+import {NgxAudioPlayerModule} from 'ngx-audio-player';
 
 @NgModule({
   declarations: [HomeComponent, LoginComponent, RegisterComponent, UserComponent, UpdateProfileComponent],
@@ -15,7 +16,8 @@ import {UpdateProfileComponent} from './update-profile/update-profile.component'
     CommonModule,
     ReactiveFormsModule,
     UserRoutingModule,
-    SharedModule
+    SharedModule,
+    NgxAudioPlayerModule
   ],
   exports: [HomeComponent, LoginComponent, RegisterComponent, UserComponent, UpdateProfileComponent]
 })

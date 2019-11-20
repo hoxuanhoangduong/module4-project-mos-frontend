@@ -10,6 +10,7 @@ import {JwtInterceptor} from './helper/jwt.interceptor';
 
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ReactiveFormsModule} from '@angular/forms';
+import {NgxAudioPlayerModule} from 'ngx-audio-player';
 
 // @ts-ignore
 @NgModule({
@@ -23,7 +24,8 @@ import {ReactiveFormsModule} from '@angular/forms';
     NgbModule,
     UserModule,
     BrowserAnimationsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgxAudioPlayerModule
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
