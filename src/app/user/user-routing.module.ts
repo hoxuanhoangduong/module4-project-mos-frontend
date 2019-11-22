@@ -18,7 +18,8 @@ const routes: Routes = [
       {path: 'home', component: HomeComponent, canActivate: [AuthGuard]},
       {path: 'login', component: LoginComponent},
       {path: 'register', component: RegisterComponent},
-      {path: 'update-profile', component: UpdateProfileComponent, canActivate: [AuthGuard]}
+      {path: 'update-profile', component: UpdateProfileComponent, canActivate: [AuthGuard]},
+      {path: 'song', loadChildren: () => import('../song/song.module').then(mod => mod.SongModule)},
     ]
   }
 ];

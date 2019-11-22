@@ -19,6 +19,8 @@
           {{ username }}
         </a>
         <div aria-labelledby="navbarDropdown" class="dropdown-menu" ngbDropdownMenu>
+          <a [routerLink]="['/song','upload']" aria-disabled="true" class="dropdown-item" ngbDropdownItem
+             tabindex="-1">Upload Song</a>
           <a [routerLink]="['/update-profile']" aria-disabled="true" class="dropdown-item" ngbDropdownItem
              tabindex="-1">Edit Profile</a>
           <a (click)="logoutClick()" aria-disabled="true" class="dropdown-item" ngbDropdownItem tabindex="-1">Logout</a>
