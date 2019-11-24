@@ -1,5 +1,25 @@
 <div class="card mt-4">
+  <div *ngFor="let item of song; index as i">
+    <a [routerLink]="['/home',item.id]"><h3>{{item.name}}</h3></a>
+    <div class="item">
+      <div class="content">
+        <ol>
+          <li>Release date: {{item.releaseDate}}</li>
+        </ol>
+      </div>
+    </div>
+  </div>
   <h4 class="card-header">Welcome to MOS</h4>
+  <div *ngFor="let item of song; index as i">
+    <a [routerLink]="['/home',item.id]"><h3>{{item.name}}</h3></a>
+    <div class="item">
+      <div class="content">
+        <ol>
+          <li>Release date: {{item.releaseDate}}</li>
+        </ol>
+      </div>
+    </div>
+  </div>
   <div class="card-body">
     <h6>Users</h6>
     <div *ngIf="loading" class="spinner-border spinner-border-sm"></div>
