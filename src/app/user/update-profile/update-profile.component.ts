@@ -47,13 +47,11 @@ export class UpdateProfileComponent implements OnInit {
     });
   }
 
-  // selectFile(event) {
-  //   if (event.target.files.length > 0) {
-  //     this.file = event.target.files[0];
-  //     this.isImageFileChoosen = true;
-  //     this.imageFileName = event.target.files[0].name;
-  //   }
-  // }
+  selectFile(event) {
+    if (event.target.files.length > 0) {
+      this.file = event.target.files[0];
+    }
+  }
 
   displayProgress(event, progress: Progress): boolean {
     switch (event.type) {
