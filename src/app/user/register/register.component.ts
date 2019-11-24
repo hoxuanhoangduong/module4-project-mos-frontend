@@ -38,6 +38,12 @@ export class RegisterComponent implements OnInit {
     return this.registerForm.controls;
   }
 
+  selectFile(event) {
+    if (event.target.files.length > 0) {
+      this.file = event.target.files[0];
+    }
+  }
+
   ngOnInit() {
 
   }
