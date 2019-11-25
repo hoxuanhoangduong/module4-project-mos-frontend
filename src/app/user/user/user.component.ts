@@ -23,8 +23,8 @@ export class UserComponent implements OnInit {
   // Material Style Advance Audio Player Playlist
   msaapPlaylist: Track[] = [
     {
-      title: 'senonita',
-      link: 'https://data25.chiasenhac.com/downloads/2033/3/2032396/128/Senorita%20-%20J_Fla.mp3'
+      title: '',
+      link: ''
     }
   ];
 
