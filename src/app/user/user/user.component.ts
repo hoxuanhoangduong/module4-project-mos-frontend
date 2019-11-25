@@ -3,6 +3,7 @@ import {Token} from '../../model/token';
 import {Router} from '@angular/router';
 import {AuthService} from '../../service/auth.service';
 import {Track} from 'ngx-audio-player';
+import {PlayingQueueService} from '../../service/playing-queue.service';
 
 @Component({
   selector: 'app-user',
@@ -28,7 +29,26 @@ export class UserComponent implements OnInit {
     }
   ];
 
-  constructor(private router: Router, private authService: AuthService) {
+  constructor(private router: Router, private authService: AuthService, private playingQueueService: PlayingQueueService) {
+    this.authService.currentUser.subscribe(
+      currentUser => {
+        this.currentUser = currentUser;
+      }
+    );
+    this.playingQueueService.currentQueue.subscribe(
+      currentQueue => {
+        this.msaapPlaylist = currentQueue;
+      }
+    );
+    this.playingQueueService.update.subscribe(
+      () => {
+        this.msaapDisplayVolumeControls = !this.msaapDisplayVolumeControls;
+        const reEnableVolumeControl = setTimeout(() => {
+          this.msaapDisplayVolumeControls = true;
+          clearTimeout(reEnableVolumeControl);
+        }, 0);
+      }
+    );
   }
 
   onActivate(elementRef) {
@@ -46,6 +66,7 @@ export class UserComponent implements OnInit {
   }
 
   ngOnInit() {
+
   }
 
 }
