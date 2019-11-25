@@ -1,26 +1,39 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 
-import {AppComponent} from './app.component';
-import {UserComponent} from './user/user.component';
 import {AppRoutingModule} from './app-routing.module';
-import {ReactiveFormsModule} from '@angular/forms';
-import {HttpClientModule} from '@angular/common/http';
-import {UserCreateComponent} from './user-create/user-create.component';
+import {AppComponent} from './app.component';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
+import {UserModule} from './user/user.module';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {JwtInterceptor} from './helper/jwt.interceptor';
 
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {ReactiveFormsModule} from '@angular/forms';
+import {NgxAudioPlayerModule} from 'ngx-audio-player';
+import {ErrorInterceptor} from './helper/error.interceptor';
+
+// @ts-ignore
 @NgModule({
   declarations: [
-    AppComponent,
-    UserComponent,
-    UserCreateComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    HttpClientModule,
+    NgbModule,
+    UserModule,
+    BrowserAnimationsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    NgxAudioPlayerModule
   ],
-  providers: [],
+  providers: [
+    {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
+    {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
+  ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+
+export class AppRootModule {
+}

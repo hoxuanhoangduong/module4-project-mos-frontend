@@ -1,0 +1,9 @@
+<div class="card mt-4">
+  <div class="card-body">
+    <h6>Users</h6>
+    <div *ngIf="loading" class="spinner-border spinner-border-sm"></div>
+    <div *ngIf="user">
+      <h4>{{ user.username }}</h4>
+    </div>
+  </div>
+</div>
