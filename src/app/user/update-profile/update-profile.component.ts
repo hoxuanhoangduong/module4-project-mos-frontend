@@ -103,3 +103,4 @@ export class UpdateProfileComponent implements OnInit {
   }
 
 }
+// Cannot read property 'username' bug
