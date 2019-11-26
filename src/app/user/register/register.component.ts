@@ -22,8 +22,6 @@ export class RegisterComponent implements OnInit {
               private userService: UserService) {
     this.registerForm = this.fb.group({
       username: ['', [Validators.required, Validators.minLength(5)]],
-      // tslint:disable-next-line:max-line-length
-      // password: ['', [Validators.required, Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[$@$!%*#?&])[A-Za-z\\d$@$!%*#?&]{8,}$'), Validators.minLength(6) ]],
       password: ['', [Validators.required, Validators.minLength(6)]],
       firstName: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(20)]],
       lastName: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(20)]],
@@ -36,12 +34,6 @@ export class RegisterComponent implements OnInit {
 
   get f() {
     return this.registerForm.controls;
-  }
-
-  selectFile(event) {
-    if (event.target.files.length > 0) {
-      this.file = event.target.files[0];
-    }
   }
 
   ngOnInit() {
