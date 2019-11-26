@@ -10,26 +10,14 @@
 
   <div *ngFor="let artist of artists.controls; let i = index;" class="form-group"
        formArrayName="artists">
-    <div [formGroupName]="i">
-      <mat-form-field>
-        <label for="artistName">{{ 'Artist ' + (i + 1) + ' name' }}
-          <input [matAutocomplete]="auto" [placeholder]="'Artist ' + (i + 1) + ' name'" class="form-control"
-                 formControlName="name" id="artistName" matInput type="text">
-        </label>
-        <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
-          <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
-            {{option.name}}
-          </mat-option>
-        </mat-autocomplete>
-      </mat-form-field>
-      <input class="form-control" formControlName="birthDate" placeholder="Birth Date" type="date">
-    </div>
-
+    <label for="artistName">Artist
+      <input class="form-control" formControlName="name" id="artistName" type="text">
+    </label>
   </div>
 
   <div class="form-group">
     <label for="releaseDate">Release Date</label>
-    <input class="form-control" formControlName="releaseDate" id="releaseDate" placeholder="yyyy-mm-dd" type="date">
+    <input class="form-control" formControlName="releaseDate" id="releaseDate" type="date">
     <div *ngIf="songUploadForm.get('releaseDate').hasError('required') && songUploadForm.get('releaseDate').touched"
          class="alert alert-danger" role="alert">
       Must be filled!
@@ -38,11 +26,11 @@
 
   <label for="audio">Audio File</label>
   <div class="form-group custom-file">
-
     <label *ngIf=!isAudioFileChosen class="custom-file-label">Choose file</label>
-    <label *ngIf=isAudioFileChosen class="custom-file-label">{{ audioFileName }}</label>
+    <label *ngIf=isAudioFileChosen class="custom-file-label" style="color: black">{{ audioFileName }}</label>
     <input (change)="selectFile($event)" class="custom-file-input" id="audio" type="file">
   </div>
+
   <div class="mt-sm-3">
     <button class="btn btn-primary" type="submit">Submit</button>
   </div>
@@ -53,4 +41,3 @@
   </div>
 </form>
 
-<pre>{{songUploadForm.value | json}}</pre>

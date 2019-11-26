@@ -15,18 +15,7 @@
     <td>
       <button (click)="addToPlaying(song, $event)" [disabled]="song.isDisabled" class="btn btn-primary"><i
         class="fas fa-play-circle"></i></button>
-      <div class="d-inline-block" ngbDropdown>
-        <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle><i
-          class="fas fa-ellipsis-h fa-1x"></i></button>
-        <div aria-labelledby="dropdownBasic1" ngbDropdownMenu>
-          <!--          <button ngbDropdownItem [routerLink]="['/playlist','add-to-playlist',song.id]">Add to playlist</button>-->
-          <button ngbDropdownItem>Another Action</button>
-          <button ngbDropdownItem>Something else is here</button>
-        </div>
-      </div>
     </td>
-    <td><a [routerLink]="['/song','edit', song.id]">Edit</a></td>
-
   </tr>
   </tbody>
 </table>
