@@ -63,7 +63,7 @@ export class LoginComponent implements OnInit {
           this.userService.getProfile().pipe(first()).subscribe(user => {
             this.loginAction.emit(user);
           });
-          this.router.navigate([this.returnUrl]);
+          this.router.navigate(['/#']);
         },
         error => {
           this.error = error;
