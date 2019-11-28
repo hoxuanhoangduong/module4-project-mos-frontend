@@ -2,8 +2,8 @@ import {Injectable} from '@angular/core';
 import {BehaviorSubject, Observable} from 'rxjs';
 import {Token} from '../model/token';
 import {HttpClient} from '@angular/common/http';
-import {environment} from '../../environments/environment';
 import {map} from 'rxjs/operators';
+import {environment} from '../../environments/environment.prod';
 
 @Injectable({
   providedIn: 'root'
