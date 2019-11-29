@@ -80,7 +80,7 @@ export class UploadSongComponent implements OnInit {
     this.formData.append('audio', this.file);
     this.audioUploadService.uploadSong(this.formData).subscribe(
       (event: HttpEvent<any>) => {
-        this.message = 'Song uploaded successfully!';
+        this.message = 'Song is uploading';
         this.displayProgress(event, this.progress);
       }, error => {
         this.message = 'Failed to upload song';
