@@ -8,10 +8,11 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {SongComponent} from './song/song.component';
 import {UploadSongComponent} from './upload-song/upload-song.component';
 import {SongListComponent} from './song-list/song-list.component';
+import {SongDetailComponent} from './song-detail/song-detail.component';
 
 
 @NgModule({
-  declarations: [SongComponent, UploadSongComponent, SongListComponent],
+  declarations: [SongComponent, UploadSongComponent, SongListComponent, SongDetailComponent, SongDetailComponent],
   imports: [
     CommonModule,
     SongRoutingModule,
@@ -22,7 +23,7 @@ import {SongListComponent} from './song-list/song-list.component';
     NgbModule,
     MatAutocompleteModule
   ],
-  exports: [SongComponent, UploadSongComponent, SongListComponent]
+  exports: [SongComponent, UploadSongComponent, SongListComponent, SongDetailComponent]
 })
 export class SongModule {
 }
