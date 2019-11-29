@@ -10,7 +10,7 @@
   <tbody>
   <tr *ngFor="let song of songList; index as i">
     <th scope="row">{{ i + 1 }}</th>
-    <td>{{ song.name }}</td>
+    <td><a [queryParams]="{id: song.id}" [routerLink]="['/song','detail']"></a>{{ song.name }}</td>
     <td>{{ song.releaseDate | date }}</td>
     <td>
       <button (click)="addToPlaying(song, $event)" [disabled]="song.isDisabled" class="btn btn-primary"><i
@@ -19,7 +19,3 @@
   </tr>
   </tbody>
 </table>
-<ngb-pagination
-  [(page)]="pageNumber"
-  [collectionSize]="totalItems"
-  [pageSize]="pageSize"></ngb-pagination>
