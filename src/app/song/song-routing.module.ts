@@ -25,7 +25,7 @@ const routes: Routes = [
         component: SongListComponent
       },
       {
-        path: 'song-detail',
+        path: 'detail',
         component: SongDetailComponent
       }
     ]
