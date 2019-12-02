@@ -12,8 +12,21 @@ export class SongService {
   constructor(private http: HttpClient) {
   }
 
-  getSongList() {
-    return this.http.get<any>(`${environment.apiUrl}/song/list`);
+  getSongList(page?: number, sort?: string) {
+    let requestUrl = `${environment.apiUrl}/song/list`;
+    if (page || sort) {
+      requestUrl = requestUrl + `?`;
+      if (page) {
+        requestUrl = requestUrl + `page=${page}`;
+        if (sort) {
+          requestUrl = requestUrl + `&`;
+        }
+      }
+      if (sort) {
+        requestUrl = requestUrl + `sort=${sort}`;
+      }
+    }
+    return this.http.get<any>(requestUrl);
   }
 
   updateSong(song: Song, id: number): Observable<Song> {
@@ -22,5 +35,13 @@ export class SongService {
 
   listenToSong(songId: number) {
     return this.http.post<any>(`${environment.apiUrl}/song?listen&song-id=${songId}`, {});
+  }
+
+  songDetail(id: number): Observable<Song> {
+    return this.http.get<any>(`${environment.apiUrl}/song/detail?id=${id}`);
+  }
+
+  commentSong(songId: number, comment: Comment) {
+    return this.http.post<any>(`${environment.apiUrl}/song?comment&song-id=${songId}`, comment);
   }
 }
