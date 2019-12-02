@@ -7,6 +7,7 @@ import {UserComponent} from './user/user.component';
 import {AuthGuard} from '../guard/auth.guard';
 import {UpdateProfileComponent} from './update-profile/update-profile.component';
 import {ProfileComponent} from './profile/profile.component';
+import {SearchComponent} from './search/search.component';
 
 const routes: Routes = [
   {
@@ -22,6 +23,7 @@ const routes: Routes = [
       {path: 'update-profile', component: UpdateProfileComponent, canActivate: [AuthGuard]},
       {path: 'profile', component: ProfileComponent, canActivate: [AuthGuard]},
       {path: 'song', loadChildren: () => import('../song/song.module').then(mod => mod.SongModule)},
+      {path: 'search', component: SearchComponent}
     ]
   }
 ];

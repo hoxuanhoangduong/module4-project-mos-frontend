@@ -29,4 +29,10 @@
       </li>
     </ul>
   </div>
+  <div class="d-inline-block">
+    <form (ngSubmit)="onSearch()" [formGroup]="searchForm" class="form-inline">
+      <input aria-label="Search" class="form-control" formControlName="searchText" placeholder="Search" type="search">
+      <button class="btn btn-info mx-2 form-inline" type="submit"><i class="fas fa-search"></i></button>
+    </form>
+  </div>
 </nav>

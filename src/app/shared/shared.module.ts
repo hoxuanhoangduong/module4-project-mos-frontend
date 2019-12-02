@@ -4,6 +4,7 @@ import {NavbarComponent} from './navbar/navbar.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {RouterModule} from '@angular/router';
 import {SidebarComponent} from './sidebar/sidebar.component';
+import {ReactiveFormsModule} from '@angular/forms';
 
 
 @NgModule({
@@ -11,7 +12,8 @@ import {SidebarComponent} from './sidebar/sidebar.component';
   imports: [
     CommonModule,
     NgbModule,
-    RouterModule
+    RouterModule,
+    ReactiveFormsModule
   ],
   exports: [NavbarComponent, SidebarComponent]
 })

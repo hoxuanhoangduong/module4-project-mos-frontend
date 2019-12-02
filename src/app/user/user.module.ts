@@ -10,17 +10,21 @@ import {SharedModule} from '../shared/shared.module';
 import {UpdateProfileComponent} from './update-profile/update-profile.component';
 import {NgxAudioPlayerModule} from 'ngx-audio-player';
 import {ProfileComponent} from './profile/profile.component';
+import {SearchComponent} from './search/search.component';
+import {NgbTabsetModule} from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
-  declarations: [HomeComponent, LoginComponent, RegisterComponent, UserComponent, UpdateProfileComponent, ProfileComponent],
+  declarations: [HomeComponent, LoginComponent, RegisterComponent,
+    UserComponent, UpdateProfileComponent, ProfileComponent, SearchComponent],
   imports: [
     CommonModule,
     ReactiveFormsModule,
     UserRoutingModule,
     SharedModule,
-    NgxAudioPlayerModule
+    NgxAudioPlayerModule,
+    NgbTabsetModule
   ],
-  exports: [HomeComponent, LoginComponent, RegisterComponent, UserComponent, UpdateProfileComponent, ProfileComponent]
+  exports: [HomeComponent, LoginComponent, RegisterComponent, UserComponent, UpdateProfileComponent, ProfileComponent, SearchComponent]
 })
 export class UserModule {
 }

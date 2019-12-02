@@ -1,6 +1,8 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {AuthService} from '../../service/auth.service';
 import {UserService} from '../../service/user.service';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
@@ -12,8 +14,10 @@ export class NavbarComponent implements OnInit {
   isCollapsed: boolean;
   @Input() isLoggedIn: boolean;
   @Input() username: string;
+  searchForm: FormGroup;
 
-  constructor(private authService: AuthService, private userservice: UserService) {
+  constructor(private authService: AuthService, private userservice: UserService, private fb: FormBuilder,
+              private router: Router, private route: ActivatedRoute) {
   }
 
   ngOnInit() {
@@ -23,6 +27,21 @@ export class NavbarComponent implements OnInit {
         this.username = user.username;
       }
     );
+    this.searchForm = this.fb.group({
+      searchText: ['', Validators.required]
+    });
+  }
+
+  onSearch() {
+    if (this.searchForm.invalid) {
+      return;
+    }
+    const searchText = this.searchForm.get('searchText').value;
+    // tslint:disable-next-line:only-arrow-functions
+    this.router.routeReuseStrategy.shouldReuseRoute = function() {
+      return false;
+    };
+    this.router.navigate(['/', 'search'], {queryParams: {name: searchText}});
   }
 
   logoutClick() {
