@@ -1,4 +1,4 @@
 export const environment = {
-  apiUrl: 'http://localhost:8080/api',
+  apiUrl: 'https://spring-boot-mos-backend.herokuapp.com',
   production: true
 };
