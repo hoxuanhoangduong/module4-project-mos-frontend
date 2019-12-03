@@ -8,7 +8,7 @@ import {Progress} from '../../model/progress';
 import {User} from '../../model/user.interface';
 
 @Component({
-  selector: 'app-edit',
+  selector: 'app-update-profile',
   templateUrl: './update-profile.component.html',
   styleUrls: ['./update-profile.component.scss']
 })
@@ -45,6 +45,7 @@ export class UpdateProfileComponent implements OnInit {
       birthDate: [this.currentUser.birthDate, Validators.required],
       email: [this.currentUser.email]
     });
+    console.log(this.updateForm);
   }
 
   selectFile(event) {
