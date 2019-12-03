@@ -318,89 +318,26 @@
   animation-name: shake;
 }
 
-.login .modal-dialog{
+.login .modal-dialog {
   width: 350px;
 }
-.login .modal-footer{
+
+.login .modal-footer {
   border-top: 0;
   margin-top: 0px;
   padding: 10px 20px 20px;
 }
-.login .modal-header {
-  border: 0 none;
-  padding: 15px 15px 15px;
-}
-.login .modal-body{
+
+//.login .modal-header {
+//  margin-left: 15px;
+//  border: 0 none;
+//  padding: 15px 15px 15px;
+//}
+.login .modal-body {
   background-color: #eeeeee;
 }
-.login .division {
-  float: none;
-  margin: 0 auto 18px;
-  overflow: hidden;
-  position: relative;
-  text-align: center;
-  width: 100%;
-}
-.login .division .line {
-  border-top: 1px solid #DFDFDF;
-  position: absolute;
-  top: 10px;
-  width: 34%;
-}
-.login .division .line.l {
-  left: 0;
-}
-.login .division .line.r {
-  right: 0;
-}
-.login .division span {
-  color: #424242;
-  font-size: 17px;
-}
-.login .box .social {
-  float: none;
-  margin: 0 auto 30px;
-  text-align: center;
-}
 
-.login .social .circle{
-  background-color: #EEEEEE;
-  color: #FFFFFF;
-  border-radius: 100px;
-  display: inline-block;
-  margin: 0 17px;
-  padding: 15px;
-}
-.login .social .circle .fa{
-  font-size: 16px;
-}
-.login .social .facebook{
-  background-color: #455CA8;
-  color: #FFFFFF;
-}
-.login .social .google{
-  background-color: #F74933;
-}
-.login .social .github{
-  background-color: #403A3A;
-}
-.login .facebook:hover{
-  background-color: #6E83CD;
-}
-.login .google:hover{
-  background-color: #FF7566;
-}
-.login .github:hover{
-  background-color: #4D4D4d;;
-}
-.login .forgot {
-  color: #797979;
-  margin-left: 0;
-  overflow: hidden;
-  text-align: center;
-  width: 100%;
-}
-.login .btn-login, .registerBox .btn-register{
+.login .btn-login, .registerBox .btn-register {
   background-color: #00BBFF;
   border-color: #00BBFF;
   border-width: 0;
@@ -439,7 +376,6 @@
   padding: 13px 12px;
   width: 100%;
 }
-
 
 @media (max-width:400px){
   .login .modal-dialog{
