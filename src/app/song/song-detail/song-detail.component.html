@@ -10,6 +10,7 @@
           <button (click)="addToPlaying(song, $event)" [disabled]="song.isDisabled" class="btn btn-primary"><i
             class="fas fa-play-circle"></i>
           </button>
+          <button (click)="deleteSong(songId)"><i class="fas fa-trash-alt"></i></button>
         </div>
         <div class="d-inline-block float-right mx-1">
         </div>

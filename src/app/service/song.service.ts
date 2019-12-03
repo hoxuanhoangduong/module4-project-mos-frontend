@@ -44,4 +44,8 @@ export class SongService {
   commentSong(songId: number, comment: Comment) {
     return this.http.post<any>(`${environment.apiUrl}/song?comment&song-id=${songId}`, comment);
   }
+
+  deleteSong(id: number) {
+    return this.http.delete<any>(`${environment.apiUrl}/song/delete?id=${id}`);
+  }
 }

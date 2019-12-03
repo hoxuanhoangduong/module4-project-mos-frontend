@@ -154,4 +154,21 @@ export class SongDetailComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
+
+  deleteSong(i: number) {
+    this.songService.deleteSong(i).subscribe(() => {
+      const navigation = setInterval(() => {
+        this.navigate();
+        clearTimeout(navigation);
+      }, 3000);
+    }, this.errorHandle);
+  }
+
+  navigate() {
+    this.router.navigateByUrl('list');
+  }
+
+  errorHandle(error: any) {
+    alert('Error !!!');
+  }
 }

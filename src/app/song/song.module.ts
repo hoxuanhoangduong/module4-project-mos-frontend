@@ -12,7 +12,7 @@ import {SongDetailComponent} from './song-detail/song-detail.component';
 
 
 @NgModule({
-  declarations: [SongComponent, UploadSongComponent, SongListComponent, SongDetailComponent, SongDetailComponent],
+  declarations: [SongComponent, UploadSongComponent, SongListComponent, SongDetailComponent],
   imports: [
     CommonModule,
     SongRoutingModule,
