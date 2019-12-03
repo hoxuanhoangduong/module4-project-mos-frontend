@@ -15,6 +15,8 @@ import {UserService} from '../../service/user.service';
 })
 export class ProfileComponent implements OnInit {
   currentUser: User;
+  message: string;
+  showEditForm = false;
   subscription: Subscription = new Subscription();
 
   constructor(private fb: FormBuilder, private route: ActivatedRoute, private router: Router,
