@@ -11,4 +11,7 @@ export interface Song {
   uploader?: User;
   comments?: Comment[];
   isDisabled?: boolean;
+  listeningFrequency?: number;
+  loadingLikeButton?: boolean;
+  liked?: boolean;
 }

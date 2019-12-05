@@ -1,7 +1,7 @@
 <ng-container *ngIf="song">
-  <h4>Song Info</h4>
   <div>
     <div class="card">
+      <h4>Song Info</h4>
       <div class="card-body">
         <h6 class="d-inline">Song : </h6><span>{{song.name}}</span>
         <div class="d-inline-block float-right mx-1">
@@ -11,6 +11,20 @@
             class="fas fa-play-circle"></i>
           </button>
           <button (click)="deleteSong(songId)"><i class="fas fa-trash-alt"></i></button>
+          <ng-container *ngIf="!!currentUser">
+            <button (click)="likeSong(song, $event)" *ngIf="!song.liked" [disabled]="song.loadingLikeButton"
+                    class="btn btn-outline-danger rounded-circle">
+              <span *ngIf="song.loadingLikeButton" aria-hidden="true" class="spinner-border spinner-border-sm"
+                    role="status"></span>
+              <span *ngIf="!song.loadingLikeButton"><i class="far fa-heart"></i></span>
+            </button>
+            <button (click)="unlikeSong(song, $event)" *ngIf="song.liked" [disabled]="song.loadingLikeButton"
+                    class="btn btn-outline-danger rounded-circle">
+              <span *ngIf="song.loadingLikeButton" aria-hidden="true" class="spinner-border spinner-border-sm"
+                    role="status"></span>
+              <span *ngIf="!song.loadingLikeButton"><i class="fas fa-heart"></i></span>
+            </button>
+          </ng-container>
         </div>
         <div class="d-inline-block float-right mx-1">
         </div>

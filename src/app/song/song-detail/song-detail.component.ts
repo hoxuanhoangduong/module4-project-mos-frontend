@@ -155,6 +155,46 @@ export class SongDetailComponent implements OnInit, OnDestroy {
     this.subscription.unsubscribe();
   }
 
+  likeSong(song: Song, event) {
+    event.stopPropagation();
+    song.loadingLikeButton = true;
+    this.subscription.add(this.songService.likeSong(song.id).subscribe(
+      () => {
+        this.subscription.add(this.songService.songDetail(song.id).subscribe(
+          songDetail => {
+            this.song = songDetail;
+          }, error1 => {
+            console.log(error1);
+          }
+        ));
+      }, error => {
+        console.log(error);
+      }, () => {
+        song.loadingLikeButton = false;
+      }
+    ));
+  }
+
+  unlikeSong(song: Song, event) {
+    event.stopPropagation();
+    song.loadingLikeButton = true;
+    this.subscription.add(this.songService.unlikeSong(song.id).subscribe(
+      () => {
+        this.subscription.add(this.songService.songDetail(song.id).subscribe(
+          songDetail => {
+            this.song = songDetail;
+          }, error1 => {
+            console.log(error1);
+          }
+        ));
+      }, error => {
+        console.log(error);
+      }, () => {
+        song.loadingLikeButton = false;
+      }
+    ));
+  }
+
   deleteSong(i: number) {
     this.songService.deleteSong(i).subscribe(() => {
       const navigation = setInterval(() => {
