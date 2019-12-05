@@ -48,4 +48,12 @@ export class SongService {
   deleteSong(id: number) {
     return this.http.delete<any>(`${environment.apiUrl}/song/delete?id=${id}`);
   }
+
+  likeSong(songId: number) {
+    return this.http.post<any>(`${environment.apiUrl}/song?like&song-id=${songId}`, {});
+  }
+
+  unlikeSong(songId: number) {
+    return this.http.post<any>(`${environment.apiUrl}/song?unlike&song-id=${songId}`, {});
+  }
 }
