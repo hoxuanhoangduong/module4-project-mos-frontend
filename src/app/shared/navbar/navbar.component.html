@@ -54,11 +54,33 @@
           <a (click)="openLoginModal();" data-toggle="modal" href="javascript:void(0)"><i class="fas fa-user"></i>LOGIN</a>
           <a (click)="openRegisterModal();" data-toggle="modal" href="javascript:void(0)">REGISTER</a>
         </li>
+        <!--        <li *ngIf="isLoggedIn" class="nav-item dropdown" ngbDropdown>-->
+        <!--          <a aria-expanded="false" aria-haspopup="true" class="nav-link dropdown-toggle" data-toggle="dropdown"-->
+        <!--             id="navbarDropdown" ngbDropdownToggle role="button">-->
+        <!--            {{ username }}-->
+        <!--          </a>-->
+        <!--          <div aria-labelledby="navbarDropdown" class="dropdown-menu" ngbDropdownMenu>-->
+        <!--            <a [routerLink]="['/song','upload']" aria-disabled="true" class="dropdown-item" ngbDropdownItem-->
+        <!--               tabindex="-1">Upload Song</a>-->
+        <!--            <a [routerLink]="['/profile']" aria-disabled="true" class="dropdown-item" ngbDropdownItem-->
+        <!--               tabindex="-1">User profile</a>-->
+        <!--            <a [routerLink]="['/update-profile']" aria-disabled="true" class="dropdown-item" ngbDropdownItem-->
+        <!--               tabindex="-1">Edit Profile</a>-->
+        <!--            <a (click)="logoutClick()" aria-disabled="true" class="dropdown-item" ngbDropdownItem-->
+        <!--               tabindex="-1">Logout</a>-->
+        <!--          </div>-->
+        <!--        </li>-->
+        <li *ngIf="isLoggedIn" id="divaa1">
+          <i class="fa fa-user" style="color: antiquewhite;height: 5px"><a>{{ username }}</a></i>
+          <input [routerLink]="['/song','upload']" id="btna1" type="button" value="Upload Song">
+          <input [routerLink]="['/profile']" id="btna2" type="button" value="User Profile">
+          <input (click)="logoutClick()" id="btna3" type="button" value="Logout">
+        </li>
       </ul>
     </nav>
     <div class="container h-100">
       <div class="d-flex justify-content-center h-100">
-<!--        search is not useless now-->
+        <!--        search is not useless now-->
         <div class="searchbar">
           <form (ngSubmit)="onSearch()" [formGroup]="searchForm">
             <input class="form-control" formControlName="searchText" id="search_input" placeholder="Search...">
@@ -69,6 +91,7 @@
     </div>
   </div>
 </header>
+
 
 <!--Missing logout button-->
 

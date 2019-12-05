@@ -144,6 +144,7 @@ export class NavbarComponent implements OnInit {
 
   logoutClick() {
     this.logoutAction.emit();
+    this.navigate();
   }
 
   openLoginModal() {
@@ -158,10 +159,6 @@ export class NavbarComponent implements OnInit {
     setTimeout(function show() {
       $('#loginModal').modal('show');
     }, 230);
-  }
-
-  loginAjax() {
-    shakeModal();
   }
 
   navigate() {
