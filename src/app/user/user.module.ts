@@ -12,6 +12,7 @@ import {NgxAudioPlayerModule} from 'ngx-audio-player';
 import {ProfileComponent} from './profile/profile.component';
 import {SearchComponent} from './search/search.component';
 import {NgbTabsetModule} from '@ng-bootstrap/ng-bootstrap';
+import {SongModule} from '../song/song.module';
 
 @NgModule({
   declarations: [HomeComponent, LoginComponent, RegisterComponent,
@@ -22,7 +23,8 @@ import {NgbTabsetModule} from '@ng-bootstrap/ng-bootstrap';
     UserRoutingModule,
     SharedModule,
     NgxAudioPlayerModule,
-    NgbTabsetModule
+    NgbTabsetModule,
+    SongModule
   ],
   exports: [HomeComponent, LoginComponent, RegisterComponent, UserComponent, UpdateProfileComponent, ProfileComponent, SearchComponent]
 })
