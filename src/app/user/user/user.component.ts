@@ -1,8 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Token} from '../../model/token';
+import {UserToken} from '../../model/userToken';
+import {Track} from 'ngx-audio-player';
 import {Router} from '@angular/router';
 import {AuthService} from '../../service/auth.service';
-import {Track} from 'ngx-audio-player';
 import {PlayingQueueService} from '../../service/playing-queue.service';
 
 @Component({
@@ -11,9 +11,7 @@ import {PlayingQueueService} from '../../service/playing-queue.service';
   styleUrls: ['./user.component.scss']
 })
 export class UserComponent implements OnInit {
-  username: string;
-  currentUser: Token;
-  isLoggedIn: boolean;
+  currentUser: UserToken;
 
   @Input() msaapDisplayTitle = true;
   @Input() msaapDisplayPlayList = true;
@@ -21,7 +19,7 @@ export class UserComponent implements OnInit {
   @Input() msaapDisplayVolumeControls = true;
   @Input() expanded = false;
 
-  // Material Style Advance Audio Player Playlist
+// Material Style Advance Audio Player Playlist
   msaapPlaylist: Track[] = [
     {
       title: '',
@@ -30,7 +28,7 @@ export class UserComponent implements OnInit {
   ];
 
   constructor(private router: Router, private authService: AuthService, private playingQueueService: PlayingQueueService) {
-    this.authService.currentUser.subscribe(
+    this.authService.currentUserToken.subscribe(
       currentUser => {
         this.currentUser = currentUser;
       }
@@ -51,22 +49,6 @@ export class UserComponent implements OnInit {
     );
   }
 
-  onActivate(elementRef) {
-    elementRef.loginAction.subscribe((next) => {
-      this.isLoggedIn = true;
-      this.username = next.username;
-    });
-  }
-
-  logout() {
-    this.authService.logout();
-    this.isLoggedIn = false;
-    this.router.navigate(['/login']);
-    // window.location.reload();
-  }
-
   ngOnInit() {
-
   }
-
 }

@@ -1,6 +1,5 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {LoginComponent} from './login/login.component';
 import {ReactiveFormsModule} from '@angular/forms';
 import {UserRoutingModule} from './user-routing.module';
 import {HomeComponent} from './home/home.component';
@@ -15,7 +14,7 @@ import {NgbTabsetModule} from '@ng-bootstrap/ng-bootstrap';
 import {SongModule} from '../song/song.module';
 
 @NgModule({
-  declarations: [HomeComponent, LoginComponent, RegisterComponent,
+  declarations: [HomeComponent, RegisterComponent,
     UserComponent, UpdateProfileComponent, ProfileComponent, SearchComponent],
   imports: [
     CommonModule,
@@ -26,7 +25,7 @@ import {SongModule} from '../song/song.module';
     NgbTabsetModule,
     SongModule
   ],
-  exports: [HomeComponent, LoginComponent, RegisterComponent, UserComponent, UpdateProfileComponent, ProfileComponent, SearchComponent]
+  exports: [HomeComponent, RegisterComponent, UserComponent, UpdateProfileComponent, ProfileComponent, SearchComponent]
 })
 export class UserModule {
 }

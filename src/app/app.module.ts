@@ -7,13 +7,14 @@ import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {UserModule} from './user/user.module';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {JwtInterceptor} from './helper/jwt.interceptor';
+import {JWT_OPTIONS, JwtHelperService} from '@auth0/angular-jwt';
 
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ReactiveFormsModule} from '@angular/forms';
 import {NgxAudioPlayerModule} from 'ngx-audio-player';
 import {ErrorInterceptor} from './helper/error.interceptor';
+import {PlayingQueueService} from './service/playing-queue.service';
 
-// @ts-ignore
 @NgModule({
   declarations: [
     AppComponent
@@ -31,6 +32,9 @@ import {ErrorInterceptor} from './helper/error.interceptor';
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
+    {provide: JWT_OPTIONS, useValue: JWT_OPTIONS},
+    JwtHelperService,
+    PlayingQueueService
   ],
   bootstrap: [AppComponent]
 })

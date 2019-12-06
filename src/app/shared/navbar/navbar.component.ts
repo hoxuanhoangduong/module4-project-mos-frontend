@@ -1,11 +1,12 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AuthService} from '../../service/auth.service';
 import {UserService} from '../../service/user.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import * as $ from 'jquery';
 import 'bootstrap';
-import {first} from 'rxjs/operators';
+import {Subscription} from 'rxjs';
+import {User} from '../../model/user.interface';
 
 function showLoginForm() {
   $('#loginModal .registerBox').fadeOut('fast', function registerBox() {
@@ -44,29 +45,26 @@ function shakeModal() {
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent implements OnInit {
-  searchForm: FormGroup;
-  registerForm: FormGroup;
-  loginForm: FormGroup;
+  currentUser: User;
+  message: string;
   isCollapsed: boolean;
-  @Output() logoutAction = new EventEmitter();
-  @Output() loginAction = new EventEmitter();
-  @Input() isLoggedIn: boolean;
-  @Input() username: string;
+  loginForm: FormGroup;
+  registerForm: FormGroup;
+  searchForm: FormGroup;
   loading = false;
   submitted = false;
   returnUrl: string;
-  error = false;
-  file: File;
-  message: string;
+  error: string;
+  subscription = new Subscription();
 
-  constructor(private authService: AuthService,
-              private userservice: UserService,
-              private fb: FormBuilder,
-              private router: Router,
-              private route: ActivatedRoute) {
-    if (this.authService.currentUserValue) {
-      this.router.navigate(['/']);
-    }
+  // tslint:disable-next-line:max-line-length
+  constructor(private router: Router, private route: ActivatedRoute, private authService: AuthService,
+              private userService: UserService, private fb: FormBuilder) {
+    this.userService.currentUser.subscribe(
+      currentUser => {
+        this.currentUser = currentUser;
+      }
+    );
     this.registerForm = this.fb.group({
       username: ['', [Validators.required, Validators.minLength(5)]],
       password: ['', [Validators.required, Validators.minLength(6)]],
@@ -80,55 +78,65 @@ export class NavbarComponent implements OnInit {
   }
 
   get f() {
-    return this.loginForm.controls;
+    return this.registerForm.controls;
   }
 
   ngOnInit() {
-    this.isCollapsed = true;
-    this.isLoggedIn = (this.authService.currentUserValue != null);
+    // localStorage.clear();
+    console.log(localStorage);
+    console.log(this.currentUser);
     this.loginForm = this.fb.group({
       username: ['', Validators.required],
       password: ['', Validators.required]
     });
-    this.returnUrl = this.route.snapshot.queryParams.returnUrl || '/';
-    this.userservice.getProfile().subscribe(user => {
-        this.username = user.username;
-      }
-    );
     this.searchForm = this.fb.group({
       searchText: ['', Validators.required]
     });
+    this.isCollapsed = true;
+    this.returnUrl = this.route.snapshot.queryParams.returnUrl || '/';
+  }
 
+  onSignIn() {
+    this.submitted = true;
+    // stop here if form is invalid
+    if (this.loginForm.invalid) {
+      return;
+    }
+    this.loading = true;
+    this.subscription.add(this.authService.login(this.loginForm.value).subscribe(
+      () => {
+        this.loading = false;
+        this.router.navigate([this.returnUrl]);
+      }, () => {
+        this.message = 'Wrong username or password';
+        this.loading = false;
+      }
+    ));
+  }
+
+  onSubmit() {
+    this.submitted = true;
+    this.userService.register(this.registerForm.value).subscribe(
+      () => {
+        this.message = 'User created successfully!';
+        const navigation = setInterval(() => {
+          this.navigate();
+          clearTimeout(navigation);
+        }, 3000);
+      },
+      error => {
+        this.message = 'Failed to register';
+      }
+    );
     // stop the process here if form is invalid
     if (this.registerForm.invalid) {
       return;
     }
   }
 
-  onSubmit() {
-    this.submitted = true;
-
-    // stop here if form is invalid
-    if (this.loginForm.invalid) {
-      return;
-    }
-
-    this.loading = true;
-    this.authService.login(this.f.username.value, this.f.password.value)
-      .pipe(first())
-      .subscribe(
-        data => {
-          this.userservice.getProfile().pipe(first()).subscribe(user => {
-            this.loginAction.emit(user);
-          });
-          window.location.reload();
-        },
-        error => {
-          this.error = error;
-          this.loading = false;
-        });
+  navigate() {
+    this.router.navigateByUrl('');
   }
-
 
   onSearch() {
     if (this.searchForm.invalid) {
@@ -142,9 +150,13 @@ export class NavbarComponent implements OnInit {
     this.router.navigate(['/', 'search'], {queryParams: {name: searchText}});
   }
 
-  logoutClick() {
-    this.logoutAction.emit();
-    this.navigate();
+  logout() {
+    this.authService.logout();
+    const navigation = setTimeout(
+      () => {
+        this.router.navigate(['/home']);
+        clearTimeout(navigation);
+      }, 500);
   }
 
   openLoginModal() {
@@ -161,30 +173,8 @@ export class NavbarComponent implements OnInit {
     }, 230);
   }
 
-  navigate() {
-    this.router.navigateByUrl('');
-  }
-
-  onRegister() {
-    this.submitted = true;
-    this.userservice.register(this.registerForm.value).subscribe(
-      () => {
-        this.error = false;
-        this.message = 'User created successfully!';
-        const navigation = setInterval(() => {
-          this.navigate();
-          clearTimeout(navigation);
-        }, 3000);
-      },
-      error => {
-        this.error = true;
-        this.message = 'Failed to register';
-      }
-    );
-
-    // stop the process here if form is invalid
-    if (this.registerForm.invalid) {
-      return;
-    }
+  // tslint:disable-next-line:use-lifecycle-interface
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 }

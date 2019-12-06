@@ -56,4 +56,12 @@ export class SongService {
   unlikeSong(songId: number) {
     return this.http.post<any>(`${environment.apiUrl}/song?unlike&song-id=${songId}`, {});
   }
+
+  getTop10SongsByFrequency() {
+    return this.http.get<any>(`${environment.apiUrl}/song/list-top?sort=listeningFrequency`);
+  }
+
+  getUserSongList() {
+    return this.http.get<any>(`${environment.apiUrl}/song/uploaded/list`);
+  }
 }
