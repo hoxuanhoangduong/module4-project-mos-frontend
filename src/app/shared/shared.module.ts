@@ -6,17 +6,19 @@ import {RouterModule} from '@angular/router';
 import {SidebarComponent} from './sidebar/sidebar.component';
 import {ReactiveFormsModule} from '@angular/forms';
 import {CardComponent} from './card/card.component';
+import {SpinnerComponent} from './spinner/spinner.component';
+import {FooterComponent} from './footer/footer.component';
 
 
 @NgModule({
-  declarations: [NavbarComponent, SidebarComponent, CardComponent],
+  declarations: [NavbarComponent, SidebarComponent, CardComponent, SpinnerComponent, FooterComponent],
   imports: [
     CommonModule,
     NgbModule,
     RouterModule,
     ReactiveFormsModule
   ],
-  exports: [NavbarComponent, SidebarComponent, CardComponent]
+  exports: [NavbarComponent, SidebarComponent, CardComponent, SpinnerComponent, FooterComponent]
 })
 export class SharedModule {
 }
