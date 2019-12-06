@@ -15,6 +15,20 @@
     <td>
       <button (click)="addToPlaying(song, $event)" [disabled]="song.isDisabled" class="btn btn-primary"><i
         class="fas fa-play-circle"></i></button>
+      <ng-container *ngIf="!!currentUser">
+        <button (click)="likeSong(song, $event)" *ngIf="!song.liked" [disabled]="song.loadingLikeButton"
+                class="btn btn-outline-danger">
+          <span *ngIf="song.loadingLikeButton" aria-hidden="true" class="spinner-border spinner-border-sm"
+                role="status"></span>
+          <span *ngIf="!song.loadingLikeButton"><i class="far fa-heart"></i></span>
+        </button>
+        <button (click)="unlikeSong(song, $event)" *ngIf="song.liked" [disabled]="song.loadingLikeButton"
+                class="btn btn-outline-danger">
+          <span *ngIf="song.loadingLikeButton" aria-hidden="true" class="spinner-border spinner-border-sm"
+                role="status"></span>
+          <span *ngIf="!song.loadingLikeButton"><i class="fas fa-heart"></i></span>
+        </button>
+      </ng-container>
     </td>
   </tr>
   </tbody>

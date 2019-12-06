@@ -9,10 +9,12 @@ import {SongComponent} from './song/song.component';
 import {UploadSongComponent} from './upload-song/upload-song.component';
 import {SongListComponent} from './song-list/song-list.component';
 import {SongDetailComponent} from './song-detail/song-detail.component';
+import {NewSongComponent} from './new-song/new-song.component';
+import {SharedModule} from '../shared/shared.module';
 
 
 @NgModule({
-  declarations: [SongComponent, UploadSongComponent, SongListComponent, SongDetailComponent],
+  declarations: [SongComponent, UploadSongComponent, SongListComponent, SongDetailComponent, NewSongComponent],
   imports: [
     CommonModule,
     SongRoutingModule,
@@ -21,9 +23,10 @@ import {SongDetailComponent} from './song-detail/song-detail.component';
     MatInputModule,
     MatDatepickerModule,
     NgbModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    SharedModule
   ],
-  exports: [SongComponent, UploadSongComponent, SongListComponent, SongDetailComponent]
+  exports: [SongComponent, UploadSongComponent, SongListComponent, SongDetailComponent, NewSongComponent]
 })
 export class SongModule {
 }
