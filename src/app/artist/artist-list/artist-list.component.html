@@ -1,0 +1,23 @@
+<ng-container *ngIf="loading">
+  <app-spinner [type]="4"></app-spinner>
+</ng-container>
+<table class="table table-striped">
+  <thead>
+  <tr>
+    <th scope="col">#</th>
+    <th id="name" scope="col">{{ 'Artist Name' }}</th>
+    <th id="avatar" scope="col">{{ 'Avatar' }}</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let artist of artistList; index as i" [queryParams]="{id: artist.id}"
+      [routerLink]="['/artist', 'detail']">
+    <td>{{ i + 1 }}</td>
+    <td><a [queryParams]="{id: artist.id}" [routerLink]="['/artist', 'detail']">{{ artist.name }}</a></td>
+    <td><a [queryParams]="{id: artist.id}" [routerLink]="['/artist', 'detail']"><img [src]="artist.avatarUrl" alt=""
+                                                                                     class="avatar"></a></td>
+  </tr>
+  </tbody>
+</table>
+<div *ngIf="message" class="alert alert-danger mt-3 mb-0">{{ message }}</div>
+
