@@ -1,8 +1,5 @@
-<div>
-
-</div>
-<ngb-tabset #searchTab="ngbTabset" [justify]="'justified'" [orientation]="'horizontal'" type="pills">
-  <ngb-tab id="songs" style="background: antiquewhite">
+<ngb-tabset #searchTab="ngbTabset" [justify]="'justified'" [orientation]="'horizontal'">
+  <ngb-tab id="songs">
     <ng-template ngbTabTitle><h5>Song<span class="badge badge-secondary">{{numberOfSongs}}</span></h5></ng-template>
     <ng-template ngbTabContent>
       <table *ngIf="songList.length > 0" class="table table-striped">
