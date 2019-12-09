@@ -1,5 +1,7 @@
 <ng-container *ngIf="currentUser">
-  <app-card (showEditForm)="showEditForm=!showEditForm" [imgSrc]="currentUser.avatarUrl" [showEditButton]="true"
+  <app-card (showEditForm)="showEditForm=!showEditForm"
+            [imgSrc]="(currentUser.avatarUrl)?currentUser.avatarUrl:'../../../assets/images/avatar.jpg'"
+            [showEditButton]="true"
             [title]="'Profile'" [type]="2">
     <span class="lambda_card-button"><i class="fas fa-user-edit"></i></span>
     <div class="lambda_card-text_2">
