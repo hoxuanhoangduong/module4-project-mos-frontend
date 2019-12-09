@@ -12,10 +12,11 @@ import {ProfileComponent} from './profile/profile.component';
 import {SearchComponent} from './search/search.component';
 import {NgbTabsetModule} from '@ng-bootstrap/ng-bootstrap';
 import {SongModule} from '../song/song.module';
+import {UploadedSongListComponent} from './uploaded-song-list/uploaded-song-list.component';
 
 @NgModule({
   declarations: [HomeComponent, RegisterComponent,
-    UserComponent, UpdateProfileComponent, ProfileComponent, SearchComponent],
+    UserComponent, UpdateProfileComponent, ProfileComponent, SearchComponent, UploadedSongListComponent],
   imports: [
     CommonModule,
     ReactiveFormsModule,
@@ -25,7 +26,7 @@ import {SongModule} from '../song/song.module';
     NgbTabsetModule,
     SongModule
   ],
-  exports: [HomeComponent, RegisterComponent, UserComponent, UpdateProfileComponent, ProfileComponent, SearchComponent]
+  exports: [HomeComponent, RegisterComponent, UserComponent, UpdateProfileComponent, ProfileComponent, SearchComponent, UploadedSongListComponent]
 })
 export class UserModule {
 }
