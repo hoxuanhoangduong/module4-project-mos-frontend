@@ -1,8 +1,8 @@
 <form (ngSubmit)="upload()" [formGroup]="songUploadForm">
   <div class="form-group">
     <label for="songName">Song Name</label>
-    <input class="form-control" formControlName="name" id="songName" placeholder="Enter song name" type="text">
-    <div *ngIf="songUploadForm.get('name').hasError('required') && songUploadForm.get('name').touched"
+    <input class="form-control" formControlName="title" id="songName" placeholder="Enter song name" type="text">
+    <div *ngIf="songUploadForm.get('title').hasError('required') && songUploadForm.get('title').touched"
          class="alert alert-danger" role="alert">
       Must be filled!
     </div>
@@ -28,19 +28,19 @@
     </div>
   </div>
 
-  <div class="form-group">
-    <fieldset>
-      <label for="country">Select a Country</label>
-      <select class="form-control" formControlName="country" id="country">
-        <option>USA</option>
-        <option>UK</option>
-        <option>Korean</option>
-        <option selected="selected">Việt Nam</option>
-        <option>Japan</option>
-        <option>China</option>
-      </select>
-    </fieldset>
-  </div>
+  <!--  <div class="form-group">-->
+  <!--    <fieldset>-->
+  <!--      <label for="country">Select a Country</label>-->
+  <!--      <select class="form-control" formControlName="country" id="country">-->
+  <!--        <option>USA</option>-->
+  <!--        <option>UK</option>-->
+  <!--        <option>Korean</option>-->
+  <!--        <option selected="selected">Việt Nam</option>-->
+  <!--        <option>Japan</option>-->
+  <!--        <option>China</option>-->
+  <!--      </select>-->
+  <!--    </fieldset>-->
+  <!--  </div>-->
 
   <label for="audio">Audio File</label>
   <div class="form-group custom-file">
