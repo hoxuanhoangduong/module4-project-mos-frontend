@@ -12,6 +12,7 @@ import {UserService} from '../../service/user.service';
 // import {Playlist} from '../../model/playlist';
 // import {PlaylistService} from '../../service/playlist.service';
 import {PlayingQueueService} from '../../service/playing-queue.service';
+import {CloseDialogueService} from '../../service/close-dialogue.service';
 
 
 @Component({
@@ -27,7 +28,7 @@ export class SongDetailComponent implements OnInit, OnDestroy {
   songId: number;
   artistList: Artist[];
   // playlistList: Playlist[];
-  commentList: Comment;
+  commentList: Comment[];
   commentForm: FormGroup;
   error = false;
   subscription: Subscription = new Subscription();
@@ -36,6 +37,7 @@ export class SongDetailComponent implements OnInit, OnDestroy {
               private router: Router, private authService: AuthService,
               private songService: SongService, private userService: UserService,
               // private playlistService: PlaylistService,
+              private closeDialogueService: CloseDialogueService,
               private playingQueueService: PlayingQueueService) {
     this.userService.currentUser.subscribe(
       currentUser => {
@@ -76,7 +78,7 @@ export class SongDetailComponent implements OnInit, OnDestroy {
             this.commentForm.reset();
             this.song = result;
             this.artistList = this.song.artists;
-            // this.commentList = this.song.comments;
+            this.commentList = this.song.comments;
           }, error => {
             this.message = 'Cannot retrieve Song . Cause: ' + error.message;
           }
@@ -100,45 +102,6 @@ export class SongDetailComponent implements OnInit, OnDestroy {
   //   ));
   // }
 
-  // likeSong(song: Song, event) {
-  //   event.stopPropagation();
-  //   song.loadingLikeButton = true;
-  //   this.subscription.add(this.songService.likeSong(song.id).subscribe(
-  //     () => {
-  //       this.subscription.add(this.songService.songDetail(song.id).subscribe(
-  //         songDetail => {
-  //           this.song = songDetail;
-  //         }, error1 => {
-  //           console.log(error1);
-  //         }
-  //       ));
-  //     }, error => {
-  //       console.log(error);
-  //     }, () => {
-  //       song.loadingLikeButton = false;
-  //     }
-  //   ));
-  // }
-  //
-  // unlikeSong(song: Song, event) {
-  //   event.stopPropagation();
-  //   song.loadingLikeButton = true;
-  //   this.subscription.add(this.songService.unlikeSong(song.id).subscribe(
-  //     () => {
-  //       this.subscription.add(this.songService.songDetail(song.id).subscribe(
-  //         songDetail => {
-  //           this.song = songDetail;
-  //         }, error1 => {
-  //           console.log(error1);
-  //         }
-  //       ));
-  //     }, error => {
-  //       console.log(error);
-  //     }, () => {
-  //       song.loadingLikeButton = false;
-  //     }
-  //   ));
-  // }
 
   checkDisabledSong(song: Song) {
     let isDisabled = false;
@@ -210,5 +173,17 @@ export class SongDetailComponent implements OnInit, OnDestroy {
 
   errorHandle(error: any) {
     alert('Error !!!');
+  }
+
+  deleteComment(commentId: number) {
+    this.subscription.add(this.songService.deleteComment(commentId).subscribe(
+      next => {
+        this.closeDialogueService.emitCloseDialogue(true);
+        // this.retrieveSongList();
+      }, error => {
+        this.message = 'Cannot delete comment';
+        console.log(error.message);
+      }
+    ));
   }
 }

@@ -10,7 +10,6 @@
           <button (click)="addToPlaying(song, $event)" [disabled]="song.isDisabled" class="btn btn-primary"><i
             class="fas fa-play-circle"></i>
           </button>
-          <button (click)="deleteSong(songId)"><i class="fas fa-trash-alt"></i></button>
           <ng-container *ngIf="!!currentUser">
             <button (click)="likeSong(song, $event)" *ngIf="!song.liked" [disabled]="song.loadingLikeButton"
                     class="btn btn-outline-danger rounded-circle">
@@ -24,6 +23,7 @@
                     role="status"></span>
               <span *ngIf="!song.loadingLikeButton"><i class="fas fa-heart"></i></span>
             </button>
+            <button (click)="deleteSong(songId)"><i class="fas fa-trash-alt"></i></button>
           </ng-container>
         </div>
         <div class="d-inline-block float-right mx-1">
@@ -40,25 +40,25 @@
         </ul>
       </div>
     </div>
-    <!--    <h4>Comment</h4>-->
-    <!--    <ul class="list-group">-->
-    <!--      <li *ngFor="let comment of commentList; index as i" class="list-group-item row">-->
-    <!--        <img [src]="comment.user.avatarUrl" alt="" class="avatar border">-->
-    <!--        <div class="col-sm-11">-->
-    <!--          <b>{{comment.user.username}}</b><br>-->
-    <!--          <p>{{comment.content}}</p>-->
-    <!--          <p>{{ comment.localDateTime }}</p>-->
-    <!--        </div>-->
-    <!--      </li>-->
-    <!--    </ul>-->
+    <h4>Comment</h4>
+    <ul class="list-group">
+      <li *ngFor="let comment of commentList; index as i" class="list-group-item row">
+        <img [src]="comment.user.avatarUrl" alt="" class="avatar border">
+        <div class="col-sm-11">
+          <b>{{comment.user.username}}</b><br>
+          <p>{{comment.content}}</p>
+          <p>{{ comment.localDateTime }}</p>
+        </div>
+      </li>
+    </ul>
   </div>
-  <!--  <ng-container *ngIf="!!currentUser">-->
-  <!--    <form (ngSubmit)="onSubmit()" [formGroup]="commentForm">-->
-  <!--      <label for="comment"></label><textarea class="form-control" formControlName="content" id="comment"-->
-  <!--                                             placeholder="Comment here"></textarea>-->
-  <!--      <div class="mt-sm-3">-->
-  <!--        <button class="btn btn-primary" type="submit">Comment</button>-->
-  <!--      </div>-->
-  <!--    </form>-->
-  <!--  </ng-container>-->
+  <ng-container *ngIf="!!currentUser">
+    <form (ngSubmit)="onSubmit()" [formGroup]="commentForm">
+      <label for="comment"></label><textarea class="form-control" formControlName="content" id="comment"
+                                             placeholder="Comment here"></textarea>
+      <div class="mt-sm-3">
+        <button class="btn btn-primary" type="submit">Comment</button>
+      </div>
+    </form>
+  </ng-container>
 </ng-container>
