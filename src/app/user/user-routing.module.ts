@@ -7,6 +7,7 @@ import {AuthGuard} from '../guard/auth.guard';
 import {UpdateProfileComponent} from './update-profile/update-profile.component';
 import {ProfileComponent} from './profile/profile.component';
 import {SearchComponent} from './search/search.component';
+import {UploadedSongListComponent} from './uploaded-song-list/uploaded-song-list.component';
 
 const routes: Routes = [
   {
@@ -22,6 +23,7 @@ const routes: Routes = [
       {path: 'profile', component: ProfileComponent, canActivate: [AuthGuard]},
       {path: 'song', loadChildren: () => import('../song/song.module').then(mod => mod.SongModule)},
       {path: 'artist', loadChildren: () => import('../artist/artist.module').then(mod => mod.ArtistModule)},
+      {path: 'uploaded', canActivate: [AuthGuard], component: UploadedSongListComponent},
       {path: 'search', component: SearchComponent}
     ]
   }
