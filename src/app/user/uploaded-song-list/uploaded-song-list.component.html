@@ -1,0 +1,27 @@
+<h3 class="text-center">Uploaded Song</h3>
+<table class="table table-striped">
+  <thead>
+  <tr>
+    <th scope="col">#</th>
+    <th scope="col">Title</th>
+    <th scope="col">Release Date</th>
+    <th scope="col"></th>
+    <th scope="col"></th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let song of songList; index as i" [queryParams]="{id: song.id}" [routerLink]="['/song', 'detail']">
+    <th scope="row">{{ i + 1 }}</th>
+    <td><a [queryParams]="{id: song.id}" [routerLink]="['/song', 'detail']">{{ song.title }}</a></td>
+    <td>{{ song.releaseDate | date }}</td>
+    <td>
+      <button (click)="addToPlaying(song, $event)" [disabled]="song.isDisabled" class="btn btn-primary rounded-circle">
+        <i
+          class="fas fa-play-circle"></i></button>
+    </td>
+    <td><a [queryParams]="{id: song.id}" [routerLink]="['/song','edit']" class="btn btn-secondary rounded-circle"><i
+      class="fas fa-edit"></i></a></td>
+  </tr>
+  </tbody>
+</table>
+
