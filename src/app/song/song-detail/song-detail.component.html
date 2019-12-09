@@ -45,8 +45,8 @@
       <li *ngFor="let comment of commentList; index as i" class="list-group-item row">
         <img [src]="comment.user.avatarUrl" alt="" class="avatar border">
         <div class="col-sm-11">
-          <b>{{comment.user.username}}</b><br>
-          <p>{{comment.content}}</p>
+          <b>{{ comment.user.username}}</b><br>
+          <p>{{ comment.content}}</p>
           <p>{{ comment.localDateTime }}</p>
         </div>
       </li>
@@ -62,3 +62,4 @@
     </form>
   </ng-container>
 </ng-container>
+<app-footer></app-footer>
