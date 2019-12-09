@@ -502,3 +502,23 @@
   background: white;
   padding: 2px;
 }
+
+#btna4 {
+  position: absolute;
+  top: 0px;
+  background: transparent;
+  width: 75px;
+  color: transparent;
+  font-size: 15px;
+  border: 2.5px solid transparent;
+  border-radius: 100px;
+  cursor: pointer;
+  transition: .6s;
+}
+
+#divaa1:hover > #btna4 {
+  top: 150px;
+  color: black;
+  background: white;
+  padding: 2px;
+}
