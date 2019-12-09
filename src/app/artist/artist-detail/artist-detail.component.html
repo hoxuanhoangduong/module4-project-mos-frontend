@@ -26,7 +26,7 @@
     <thead>
     <tr>
       <th scope="col">#</th>
-      <th scope="col">{{ 'Title' }}</th>
+      <th scope="col">{{ 'Name' }}</th>
       <th scope="col">{{ 'Release Date' }}</th>
       <th scope="col"></th>
       <th scope="col"></th>
@@ -36,7 +36,7 @@
     <tbody>
     <tr *ngFor="let song of songList; index as i" [queryParams]="{id: song.id}" [routerLink]="['/song/detail']">
       <th scope="row">{{ i + 1 }}</th>
-      <td><a [queryParams]="{id: song.id}" [routerLink]="['/song/detail']">{{ song.name}}</a></td>
+      <td>{{ song.title }}</td>
       <td>{{ song.releaseDate | date }}</td>
       <td>
         <ng-container *ngIf="!!currentUser">

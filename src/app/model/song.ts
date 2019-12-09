@@ -3,8 +3,7 @@ import {User} from './user.interface';
 
 export interface Song {
   id: number;
-  // title: string;
-  name: string;
+  title: string;
   releaseDate: number;
   artists: Artist[];
   url: string;
