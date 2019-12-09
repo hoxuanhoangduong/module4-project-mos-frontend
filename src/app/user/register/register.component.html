@@ -1,109 +1,103 @@
-<div class="col-md-6 offset-md-3 mt-5" style="padding-bottom: 150px">
-  <div class="card">
-    <h3 class="card-header">Register</h3>
-    <div class="card-body">
-      <form (ngSubmit)="onSubmit()" [formGroup]="registerForm">
-        <div class="form-group">
-          <label for="username"><i class="fas fa-users"></i> Username</label>
-          <input class="form-control" formControlName="username" id="username" type="text"/>
-          <div *ngIf="registerForm.get('username').hasError('required') && registerForm.get('username').touched"
-               class="alert alert-danger" role="alert">
-            Username must be filled!
-          </div>
-          <div *ngIf="registerForm.get('username').hasError('minlength') && registerForm.get('username').touched"
-               class="alert alert-danger" role="alert">
-            Username must have at least 6 characters
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label for="password"><i class="fas fa-key"></i> Password</label>
-          <input class="form-control" formControlName="password" id="password" type="password"/>
-          <div *ngIf="registerForm.get('password').hasError('required') && registerForm.get('password').touched"
-               class="alert alert-danger" role="alert">
-            Password must be filled
-          </div>
-          <div *ngIf="registerForm.get('password').hasError('minlength') && registerForm.get('password').touched"
-               class="alert alert-danger" role="alert">
-            Password must have at least 6 characters
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="firstName"><i class="fas fa-user-tie"></i> First Name</label>
-          <input class="form-control" formControlName="firstName" id="firstName" type="text"/>
-          <div *ngIf="registerForm.get('firstName').hasError('required') && registerForm.get('firstName').touched"
-               class="alert alert-danger" role="alert">
-            First name must be filled
-          </div>
-          <div *ngIf="registerForm.get('firstName').hasError('minlength') && registerForm.get('firstName').touched"
-               class="alert alert-danger" role="alert">
-            First name must have at least 2 characters
-          </div>
-          <div *ngIf="registerForm.get('firstName').hasError('maxlength') && registerForm.get('firstName').touched"
-               class="alert alert-danger" role="alert">
-            First name can only contain up to 20 characters
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label for="lastName"><i class="fas fa-user-tie"></i> Last Name</label>
-          <input class="form-control" formControlName="lastName" id="lastName" type="text"/>
-          <div *ngIf="registerForm.get('lastName').hasError('required') && registerForm.get('lastName').touched"
-               class="alert alert-danger" role="alert">
-            Last name must be filled
-          </div>
-          <div *ngIf="registerForm.get('lastName').hasError('minlength') && registerForm.get('lastName').touched"
-               class="alert alert-danger" role="alert">
-            Last name must have at least 2 characters
-          </div>
-          <div *ngIf="registerForm.get('lastName').hasError('maxlength') && registerForm.get('lastName').touched"
-               class="alert alert-danger" role="alert">
-            First name can only contain up to 30 characters
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label>
-            <input [value]=true formControlName="gender" type="radio">
-            <span>Male</span>
-          </label>
-          <label>
-            <input [value]=false formControlName="gender" type="radio">
-            <span>Female</span>
-          </label>
-        </div>
-
-        <div class="form-group">
-          <label for="birthDate"><i class="fas fa-table"></i> BirthDate</label>
-          <input class="form-control" formControlName="birthDate" id="birthDate" type="date"/>
-        </div>
-
-        <div class="form-group">
-          <label for="phoneNumber"><i class="fas fa-phone"></i> PhoneNumber</label>
-          <input class="form-control" formControlName="phoneNumber" id="phoneNumber" type="text"/>
-        </div>
-
-        <div class="form-group">
-          <label for="email"><i class="fas fa-envelope-square"> Email</i></label>
-          <input class="form-control" formControlName="email" id="email" type="text"/>
-          <div *ngIf="registerForm.get('email').hasError('required') && registerForm.get('email').touched"
-               class="alert alert-danger" role="alert">
-            Email must be filled!
-          </div>
-          <div *ngIf="registerForm.get('email').hasError('email') && registerForm.get('email').touched"
-               class="alert alert-danger" role="alert">
-            Not a valid Email
-          </div>
-        </div>
-
-        <button [disabled]="loading" class="btn btn-primary">
-          <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
-          Register
-        </button>
-        <div *ngIf="message" [class.alert-danger]="error" [class.alert-success]="!error"
-             class="alert mt-3 mb-0">{{message}}
-        </div>
-      </form>
+<form (ngSubmit)="onSubmit()" [formGroup]="registerForm">
+  <div class="form-group">
+    <label for="username"><i class="fas fa-users"></i> Username</label>
+    <input class="form-control" formControlName="username" id="username" type="text"/>
+    <div *ngIf="registerForm.get('username').hasError('required') && registerForm.get('username').touched"
+         class="alert alert-danger" role="alert">
+      Username must be filled!
+    </div>
+    <div *ngIf="registerForm.get('username').hasError('minlength') && registerForm.get('username').touched"
+         class="alert alert-danger" role="alert">
+      Username must have at least 6 characters
     </div>
   </div>
-</div>
+
+  <div class="form-group">
+    <label for="password"><i class="fas fa-key"></i> Password</label>
+    <input class="form-control" formControlName="password" id="password" type="password"/>
+    <div *ngIf="registerForm.get('password').hasError('required') && registerForm.get('password').touched"
+         class="alert alert-danger" role="alert">
+      Password must be filled
+    </div>
+    <div *ngIf="registerForm.get('password').hasError('minlength') && registerForm.get('password').touched"
+         class="alert alert-danger" role="alert">
+      Password must have at least 6 characters
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="firstName"><i class="fas fa-user-tie"></i> First Name</label>
+    <input class="form-control" formControlName="firstName" id="firstName" type="text"/>
+    <div *ngIf="registerForm.get('firstName').hasError('required') && registerForm.get('firstName').touched"
+         class="alert alert-danger" role="alert">
+      First name must be filled
+    </div>
+    <div *ngIf="registerForm.get('firstName').hasError('minlength') && registerForm.get('firstName').touched"
+         class="alert alert-danger" role="alert">
+      First name must have at least 2 characters
+    </div>
+    <div *ngIf="registerForm.get('firstName').hasError('maxlength') && registerForm.get('firstName').touched"
+         class="alert alert-danger" role="alert">
+      First name can only contain up to 20 characters
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="lastName"><i class="fas fa-user-tie"></i> Last Name</label>
+    <input class="form-control" formControlName="lastName" id="lastName" type="text"/>
+    <div *ngIf="registerForm.get('lastName').hasError('required') && registerForm.get('lastName').touched"
+         class="alert alert-danger" role="alert">
+      Last name must be filled
+    </div>
+    <div *ngIf="registerForm.get('lastName').hasError('minlength') && registerForm.get('lastName').touched"
+         class="alert alert-danger" role="alert">
+      Last name must have at least 2 characters
+    </div>
+    <div *ngIf="registerForm.get('lastName').hasError('maxlength') && registerForm.get('lastName').touched"
+         class="alert alert-danger" role="alert">
+      First name can only contain up to 30 characters
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label>
+      <input [value]=true formControlName="gender" type="radio">
+      <span>Male</span>
+    </label>
+    <label>
+      <input [value]=false formControlName="gender" type="radio">
+      <span>Female</span>
+    </label>
+  </div>
+
+  <div class="form-group">
+    <label for="birthDate"><i class="fas fa-table"></i> BirthDate</label>
+    <input class="form-control" formControlName="birthDate" id="birthDate" type="date"/>
+  </div>
+
+  <div class="form-group">
+    <label for="phoneNumber"><i class="fas fa-phone"></i> PhoneNumber</label>
+    <input class="form-control" formControlName="phoneNumber" id="phoneNumber" type="text"/>
+  </div>
+
+  <div class="form-group">
+    <label for="email"><i class="fas fa-envelope-square"> Email</i></label>
+    <input class="form-control" formControlName="email" id="email" type="text"/>
+    <div *ngIf="registerForm.get('email').hasError('required') && registerForm.get('email').touched"
+         class="alert alert-danger" role="alert">
+      Email must be filled!
+    </div>
+    <div *ngIf="registerForm.get('email').hasError('email') && registerForm.get('email').touched"
+         class="alert alert-danger" role="alert">
+      Not a valid Email
+    </div>
+  </div>
+
+  <button [disabled]="loading" class="btn btn-primary">
+    <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+    Register
+  </button>
+  <div *ngIf="message" [class.alert-danger]="error" [class.alert-success]="!error"
+       class="alert mt-3 mb-0">{{message}}
+  </div>
+</form>
+

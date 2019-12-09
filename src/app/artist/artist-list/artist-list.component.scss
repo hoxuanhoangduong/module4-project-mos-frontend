@@ -1,0 +1,12 @@
+.avatar {
+  width: 5rem;
+  height: 5rem;
+}
+
+tr, a {
+  cursor: pointer;
+}
+
+tr:nth-child(n):hover {
+  background-color: #c7c7c7;
+}

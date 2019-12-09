@@ -1,97 +1,198 @@
-<!--<nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">-->
-<!--  <a class="navbar-brand" href="#">M.O.S</a>-->
-
-<!--  <div [ngbCollapse]="isCollapsed" class="collapse navbar-collapse thead-dark" id="navbarSupportedContent">-->
-<!--    <ul class="navbar-nav mr-auto">-->
-<!--      <li [routerLinkActiveOptions]="{exact: true}" class="nav-item" routerLinkActive="active">-->
-<!--        <a [routerLink]="['/song','list']" class="nav-link">Song list <span class="sr-only">(current)</span></a>-->
-<!--      </li>-->
-<!--      <li *ngIf="!isLoggedIn" [routerLinkActiveOptions]="{exact: true}" class="nav-item" routerLinkActive="active">-->
-<!--        <a [routerLink]="['/login']" aria-disabled="true" class="nav-link" href="#" tabindex="-1">Login</a>-->
-<!--      </li>-->
-<!--      <li *ngIf="!isLoggedIn" [routerLinkActiveOptions]="{exact: true}" class="nav-item" routerLinkActive="active">-->
-<!--        <a [routerLink]="['/register']" aria-disabled="true" class="nav-link" href="#" tabindex="-1">Register</a>-->
-<!--      </li>-->
-<!--      <li *ngIf="isLoggedIn" class="nav-item dropdown" ngbDropdown>-->
-<!--        <a aria-expanded="false" aria-haspopup="true" class="nav-link dropdown-toggle" data-toggle="dropdown"-->
-<!--           id="navbarDropdown" ngbDropdownToggle role="button">-->
-<!--          {{ username }}-->
-<!--        </a>-->
-<!--        <div aria-labelledby="navbarDropdown" class="dropdown-menu" ngbDropdownMenu>-->
-<!--          <a [routerLink]="['/song','upload']" aria-disabled="true" class="dropdown-item" ngbDropdownItem-->
-<!--             tabindex="-1">Upload Song</a>-->
-<!--          <a [routerLink]="['/profile']" aria-disabled="true" class="dropdown-item" ngbDropdownItem-->
-<!--             tabindex="-1">User profile</a>-->
-<!--          <a [routerLink]="['/update-profile']" aria-disabled="true" class="dropdown-item" ngbDropdownItem-->
-<!--             tabindex="-1">Edit Profile</a>-->
-<!--          <a (click)="logoutClick()" aria-disabled="true" class="dropdown-item" ngbDropdownItem tabindex="-1">Logout</a>-->
-<!--        </div>-->
-<!--      </li>-->
-<!--    </ul>-->
-<!--  </div>-->
-<!--  <div class="d-inline-block">-->
-<!--    <form (ngSubmit)="onSearch()" [formGroup]="searchForm" class="form-inline">-->
-<!--      <input aria-label="Search" class="form-control" formControlName="searchText" placeholder="Search" type="search">-->
-<!--      <button class="btn btn-info mx-2 form-inline" type="submit"><i class="fas fa-search"></i></button>-->
-<!--    </form>-->
-<!--  </div>-->
-<!--</nav>-->
-
-<!--===========================-->
 <header id="header">
   <div class="container">
-    <div id="logo" class="pull-left">
-      <a href="#intro" class="scrollto"><img src="img/logo.png" alt="" title=""></a>
+    <div class="pull-left" id="logo">
+      <a class="scrollto"><img alt="" title=""></a>
     </div>
     <nav id="nav-menu-container">
       <ul class="nav-menu">
-        <li><i class="fas fa-home" style="color: white"></i><a href="#intro">HOME</a></li>
-        <li><i class="fa fa-music" style="color: white"></i><a href="#about">SONG</a></li>
-        <li><i class="fa fa-sign-language" style="color: white"></i><a href="#speakers">ARTIST</a></li>
-        <li><i class="fas fa-folder" style="color: white"></i><a href="#schedule">ALBUM</a></li>
-        <li class="buy-tickets" style="color: white">
-          <a data-toggle="modal" href="javascript:void(0)" (click)="openLoginModal();"><i class="fas fa-user"></i> LOGIN</a>
+        <li><i class="fas fa-home" style="color: white"></i><a href="#">HOME</a></li>
+        <li><i class="fa fa-music" style="color: white"></i><a [routerLink]="['/song','list']" class="nav-link">SONG</a>
+        </li>
+        <li><i class="fa fa-sign-language" style="color: white"></i><a [routerLink]="['/artist','list']">ARTIST</a></li>
+        <li><i class="fas fa-folder" style="color: white"></i><a>ALBUM</a></li>
+
+        <li *ngIf="!currentUser" class="buy-tickets" style="color: white">
+          <a (click)="openLoginModal();" data-toggle="modal" href="javascript:void(0)"><i class="fas fa-user"></i>LOGIN</a>
           <a (click)="openRegisterModal();" data-toggle="modal" href="javascript:void(0)">REGISTER</a>
         </li>
+
+        <li *ngIf="!!currentUser" id="divaa1">
+          <i class="fa fa-user" style="color: antiquewhite;height: 5px"><a>{{ currentUser.username }}</a></i>
+          <input [routerLink]="['/song','upload']" id="btna1" type="button" value="Upload Song">
+          <input [routerLink]="['/uploaded']" id="btna2" type="button" value="Uploaded Song">
+          <input [routerLink]="['/profile']" id="btna3" type="button" value="User Profile">
+          <input (click)="logout()" id="btna4" type="button" value="Logout">
+        </li>
       </ul>
-    </nav><!-- #nav-menu-container -->
+    </nav>
+
+    <!--    lỗi animation search-->
+
     <div class="container h-100">
       <div class="d-flex justify-content-center h-100">
         <div class="searchbar">
-          <input class="search_input" type="text" name="" placeholder="Search...">
-          <a href="#" class="search_icon"><i class="fas fa-search"></i></a>
+          <form (ngSubmit)="onSearch()" [formGroup]="searchForm">
+            <input class="search_input" formControlName="searchText" placeholder="Search...">
+            <a class="search_icon" href="#"><i class="fas fa-search"></i></a>
+          </form>
         </div>
+
       </div>
     </div>
-
-<!--    ======================================-->
   </div>
 </header>
-<div class="modal fade login" data-backdrop="false" id="loginModal">
+
+<div *ngIf="!currentUser" class="modal fade login" data-backdrop="false" id="loginModal">
   <div class="modal-dialog login animated">
     <div class="modal-content">
       <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <button aria-hidden="true" class="close" data-dismiss="modal" type="button">&times;</button>
         <h4 class="modal-title">Login with</h4>
       </div>
       <div class="modal-body">
         <div class="box">
           <div class="content">
             <div class="form loginBox">
-              <input class="form-control" id="email" name="email" placeholder="Email" type="text">
-              <input class="form-control" id="password" name="password" placeholder="Password" type="password">
-              <input class="btn btn-default btn-login" onclick="loginAjax()" type="button" value="Login">
+              <form (ngSubmit)="onSignIn()" [formGroup]="loginForm">
+                <div class="form-group">
+                  <label for="exampleDropdownFormEmail1">Username</label>
+                  <input class="form-control" formControlName="username" id="exampleDropdownFormEmail1"
+                         placeholder="username" type="text">
+                </div>
+                <div class="form-group">
+                  <label for="exampleDropdownFormPassword1">Password</label>
+                  <input class="form-control" formControlName="password" id="exampleDropdownFormPassword1"
+                         placeholder="Password" type="password">
+                </div>
+                <div *ngIf="loginForm.invalid && submitted" class="alert alert-danger" role="alert">
+                  Fields must be filled in!
+                </div>
+                <div *ngIf="message" class="alert alert-danger" role="alert">
+                  {{ message }}
+                </div>
+                <button [disabled]="loginForm.invalid" class="btn btn-info" type="submit">
+                  <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                  <span>Sign in</span>
+                </button>
+              </form>
             </div>
           </div>
-        </div>
-        <div class="box">
-          <div class="content registerBox" style="display:none;">
-            <div class="form">
-              <input class="form-control" id="email" name="email" placeholder="Email" type="text">
-              <input class="form-control" id="password" name="password" placeholder="Password" type="password">
-              <input class="form-control" id="password_confirmation" name="password_confirmation"
-                     placeholder="Repeat Password" type="password">
-              <input class="btn btn-default btn-register" name="commit" type="button" value="Create account">
+
+          <div class="box" style="padding-bottom: 100px">
+            <div class="content registerBox" style="display:none;">
+              <div class="form">
+                <form (ngSubmit)="onSubmit()" [formGroup]="registerForm">
+                  <div class="form-group">
+                    <label for="username"><i class="fas fa-users"></i> Username</label>
+                    <input class="form-control" formControlName="username" id="username" type="text"/>
+                    <div
+                      *ngIf="registerForm.get('username').hasError('required') && registerForm.get('username').touched"
+                      class="alert alert-danger" role="alert">
+                      Username must be filled!
+                    </div>
+                    <div
+                      *ngIf="registerForm.get('username').hasError('minlength') && registerForm.get('username').touched"
+                      class="alert alert-danger" role="alert">
+                      Username must have at least 6 characters
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="password"><i class="fas fa-key"></i> Password</label>
+                    <input class="form-control" formControlName="password" id="password" type="password"/>
+                    <div
+                      *ngIf="registerForm.get('password').hasError('required') && registerForm.get('password').touched"
+                      class="alert alert-danger" role="alert">
+                      Password must be filled
+                    </div>
+                    <div
+                      *ngIf="registerForm.get('password').hasError('minlength') && registerForm.get('password').touched"
+                      class="alert alert-danger" role="alert">
+                      Password must have at least 6 characters
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="firstName"><i class="fas fa-user-tie"></i> First Name</label>
+                    <input class="form-control" formControlName="firstName" id="firstName" type="text"/>
+                    <div
+                      *ngIf="registerForm.get('firstName').hasError('required') && registerForm.get('firstName').touched"
+                      class="alert alert-danger" role="alert">
+                      First name must be filled
+                    </div>
+                    <div
+                      *ngIf="registerForm.get('firstName').hasError('minlength') && registerForm.get('firstName').touched"
+                      class="alert alert-danger" role="alert">
+                      First name must have at least 2 characters
+                    </div>
+                    <div
+                      *ngIf="registerForm.get('firstName').hasError('maxlength') && registerForm.get('firstName').touched"
+                      class="alert alert-danger" role="alert">
+                      First name can only contain up to 20 characters
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="lastName"><i class="fas fa-user-tie"></i> Last Name</label>
+                    <input class="form-control" formControlName="lastName" id="lastName" type="text"/>
+                    <div
+                      *ngIf="registerForm.get('lastName').hasError('required') && registerForm.get('lastName').touched"
+                      class="alert alert-danger" role="alert">
+                      Last name must be filled
+                    </div>
+                    <div
+                      *ngIf="registerForm.get('lastName').hasError('minlength') && registerForm.get('lastName').touched"
+                      class="alert alert-danger" role="alert">
+                      Last name must have at least 2 characters
+                    </div>
+                    <div
+                      *ngIf="registerForm.get('lastName').hasError('maxlength') && registerForm.get('lastName').touched"
+                      class="alert alert-danger" role="alert">
+                      First name can only contain up to 30 characters
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label>
+                      <input [value]=true formControlName="gender" type="radio">
+                      <span>Male</span>
+                    </label>
+                    <label>
+                      <input [value]=false formControlName="gender" type="radio">
+                      <span>Female</span>
+                    </label>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="birthDate"><i class="fas fa-table"></i> BirthDate</label>
+                    <input class="form-control" formControlName="birthDate" id="birthDate" type="date"/>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="phoneNumber"><i class="fas fa-phone"></i> PhoneNumber</label>
+                    <input class="form-control" formControlName="phoneNumber" id="phoneNumber" type="text"/>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="email"><i class="fas fa-envelope-square"> Email</i></label>
+                    <input class="form-control" formControlName="email" id="email" type="text"/>
+                    <div *ngIf="registerForm.get('email').hasError('required') && registerForm.get('email').touched"
+                         class="alert alert-danger" role="alert">
+                      Email must be filled!
+                    </div>
+                    <div *ngIf="registerForm.get('email').hasError('email') && registerForm.get('email').touched"
+                         class="alert alert-danger" role="alert">
+                      Not a valid Email
+                    </div>
+                  </div>
+
+                  <button [disabled]="loading" class="btn btn-primary">
+                    <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                    Register
+                  </button>
+                  <div *ngIf="message" [class.alert-danger]="error" [class.alert-success]="!error"
+                       class="alert mt-3 mb-0">{{message}}
+                  </div>
+                </form>
+              </div>
             </div>
           </div>
         </div>

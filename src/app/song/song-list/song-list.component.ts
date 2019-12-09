@@ -75,6 +75,30 @@ export class SongListComponent implements OnInit {
     ));
   }
 
+  likeSong(song: Song, event) {
+    event.stopPropagation();
+    song.loadingLikeButton = true;
+    this.subscription.add(this.songService.likeSong(song.id).subscribe(
+      () => {
+        this.subscription.add(this.goToPage(this.pageNumber));
+      }, error => {
+        console.log(error);
+      }
+    ));
+  }
+
+  unlikeSong(song: Song, event) {
+    event.stopPropagation();
+    song.loadingLikeButton = true;
+    this.subscription.add(this.songService.unlikeSong(song.id).subscribe(
+      () => {
+        this.subscription.add(this.goToPage(this.pageNumber));
+      }, error => {
+        console.log(error);
+      }
+    ));
+  }
+
   addToPlaylist(song) {
     song.isDisabled = true;
     this.addSongToPlaylistService.emitChange(song);

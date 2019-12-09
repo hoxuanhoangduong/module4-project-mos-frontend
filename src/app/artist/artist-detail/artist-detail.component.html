@@ -1,0 +1,79 @@
+<ng-container *ngIf="loading1">
+  <app-spinner [type]="4"></app-spinner>
+</ng-container>
+<div *ngIf="artist">
+  <app-card [imgSrc]="artist.avatarUrl" [showEditButton]="false" [title]="'Artist Info' " [type]="2">
+    <div class="lambda_card-text_2">
+      <h6 class="d-inline">{{ 'Artist Name' }}: </h6><span class="text-secondary">{{artist.name}}</span><br>
+      <h6 class="d-inline">{{ 'Date of Birth' }}: </h6><span
+      class="text-secondary">{{artist.birthDate | date }}</span><br>
+      <h6 class="d-inline">{{ 'Biography'  }}: </h6>
+      <p class="text-secondary" style="overflow-wrap: break-word">{{artist.biography}}</p>
+    </div>
+  </app-card>
+</div>
+<ng-container *ngIf="loading2">
+  <app-spinner [type]="4"></app-spinner>
+</ng-container>
+<h3 class="text-center">{{ 'Song List' }}</h3>
+<div (scrolled)="onScroll()"
+     [infiniteScrollDistance]="2"
+     [infiniteScrollThrottle]="50"
+     [scrollWindow]="false"
+     class="songList py-2"
+     infiniteScroll>
+  <table class="table table-striped py-2">
+    <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">{{ 'Name' }}</th>
+      <th scope="col">{{ 'Release Date' }}</th>
+      <th scope="col"></th>
+      <th scope="col"></th>
+      <th scope="col"></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let song of songList; index as i" [queryParams]="{id: song.id}" [routerLink]="['/song/detail']">
+      <th scope="row">{{ i + 1 }}</th>
+      <td>{{ song.title }}</td>
+      <td>{{ song.releaseDate | date }}</td>
+      <td>
+        <ng-container *ngIf="!!currentUser">
+          <button (click)="likeSong(song, i, $event)" *ngIf="!song.liked" [disabled]="song.loadingLikeButton"
+                  class="btn btn-outline-danger rounded-circle">
+            <span *ngIf="song.loadingLikeButton" aria-hidden="true" class="spinner-border spinner-border-sm"
+                  role="status"></span>
+            <span *ngIf="!song.loadingLikeButton"><i class="far fa-heart"></i></span>
+          </button>
+          <button (click)="unlikeSong(song, i, $event)" *ngIf="song.liked" [disabled]="song.loadingLikeButton"
+                  class="btn btn-outline-danger rounded-circle">
+            <span *ngIf="song.loadingLikeButton" aria-hidden="true" class="spinner-border spinner-border-sm"
+                  role="status"></span>
+            <span *ngIf="!song.loadingLikeButton"><i class="fas fa-heart"></i></span>
+          </button>
+        </ng-container>
+      </td>
+      <td>
+        <button (click)="addToPlaying(song, $event)" [disabled]="song.isDisabled"
+                class="btn btn-primary rounded-circle"><i
+          class="fas fa-play-circle"></i></button>
+      </td>
+      <td>
+        <!--        <ng-container *ngIf="!!currentUser">-->
+        <!--          <app-modal [action]="'addToPlaylist'" [title]="'Select a playlist to add'">-->
+        <!--            <app-add-song-to-playlist class="modal-body" [songId]="song.id" [playlistList]="playlistList"></app-add-song-to-playlist>-->
+        <!--            <app-create-playlist (createPlaylist)="refreshPlaylistList(song.id)" class="modal_footer"></app-create-playlist>-->
+        <!--          </app-modal>-->
+        <!--        </ng-container>-->
+      </td>
+    </tr>
+    <ng-container *ngIf="loading3">
+      <tr class="text-center">
+        <app-spinner [type]="1"></app-spinner>
+      </tr>
+    </ng-container>
+    </tbody>
+  </table>
+</div>
+<div *ngIf="message" class="alert alert-danger mt-3 mb-0">{{ message }}</div>

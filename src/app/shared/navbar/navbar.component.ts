@@ -1,10 +1,12 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AuthService} from '../../service/auth.service';
 import {UserService} from '../../service/user.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import * as $ from 'jquery';
 import 'bootstrap';
+import {Subscription} from 'rxjs';
+import {User} from '../../model/user.interface';
 
 function showLoginForm() {
   $('#loginModal .registerBox').fadeOut('fast', function registerBox() {
@@ -16,6 +18,7 @@ function showLoginForm() {
   });
   $('.error').removeClass('alert alert-danger').html('');
 }
+
 function showRegisterForm() {
   $('.loginBox').fadeOut('fast', function loginBox() {
     $('.registerBox').fadeIn('fast');
@@ -42,26 +45,97 @@ function shakeModal() {
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent implements OnInit {
-  @Output() logoutAction = new EventEmitter();
+  currentUser: User;
+  message: string;
   isCollapsed: boolean;
-  @Input() isLoggedIn: boolean;
-  @Input() username: string;
+  loginForm: FormGroup;
+  registerForm: FormGroup;
   searchForm: FormGroup;
+  loading = false;
+  submitted = false;
+  returnUrl: string;
+  error: string;
+  subscription = new Subscription();
 
-  constructor(private authService: AuthService, private userservice: UserService, private fb: FormBuilder,
-              private router: Router, private route: ActivatedRoute) {
+  // tslint:disable-next-line:max-line-length
+  constructor(private router: Router, private route: ActivatedRoute, private authService: AuthService,
+              private userService: UserService, private fb: FormBuilder) {
+    this.userService.currentUser.subscribe(
+      currentUser => {
+        this.currentUser = currentUser;
+      }
+    );
+    this.registerForm = this.fb.group({
+      username: ['', [Validators.required, Validators.minLength(5)]],
+      password: ['', [Validators.required, Validators.minLength(6)]],
+      firstName: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(20)]],
+      lastName: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(20)]],
+      phoneNumber: ['', Validators.required],
+      gender: [true, Validators.required],
+      birthDate: ['', Validators.required],
+      email: ['', Validators.email]
+    });
+  }
+
+  get f() {
+    return this.registerForm.controls;
   }
 
   ngOnInit() {
-    this.isCollapsed = true;
-    this.isLoggedIn = (this.authService.currentUserValue != null);
-    this.userservice.getProfile().subscribe(user => {
-        this.username = user.username;
-      }
-    );
+    // localStorage.clear();
+    console.log(localStorage);
+    console.log(this.currentUser);
+    this.loginForm = this.fb.group({
+      username: ['', Validators.required],
+      password: ['', Validators.required]
+    });
     this.searchForm = this.fb.group({
       searchText: ['', Validators.required]
     });
+    this.isCollapsed = true;
+    this.returnUrl = this.route.snapshot.queryParams.returnUrl || '/';
+  }
+
+  onSignIn() {
+    this.submitted = true;
+    // stop here if form is invalid
+    if (this.loginForm.invalid) {
+      return;
+    }
+    this.loading = true;
+    this.subscription.add(this.authService.login(this.loginForm.value).subscribe(
+      () => {
+        this.loading = false;
+        this.router.navigate([this.returnUrl]);
+      }, () => {
+        this.message = 'Wrong username or password';
+        this.loading = false;
+      }
+    ));
+  }
+
+  onSubmit() {
+    this.submitted = true;
+    this.userService.register(this.registerForm.value).subscribe(
+      () => {
+        this.message = 'User created successfully!';
+        const navigation = setInterval(() => {
+          this.navigate();
+          clearTimeout(navigation);
+        }, 3000);
+      },
+      error => {
+        this.message = 'Failed to register';
+      }
+    );
+    // stop the process here if form is invalid
+    if (this.registerForm.invalid) {
+      return;
+    }
+  }
+
+  navigate() {
+    this.router.navigateByUrl('');
   }
 
   onSearch() {
@@ -76,8 +150,13 @@ export class NavbarComponent implements OnInit {
     this.router.navigate(['/', 'search'], {queryParams: {name: searchText}});
   }
 
-  logoutClick() {
-    this.logoutAction.emit();
+  logout() {
+    this.authService.logout();
+    const navigation = setTimeout(
+      () => {
+        this.router.navigate(['/home']);
+        clearTimeout(navigation);
+      }, 500);
   }
 
   openLoginModal() {
@@ -94,7 +173,8 @@ export class NavbarComponent implements OnInit {
     }, 230);
   }
 
-  loginAjax() {
-    shakeModal();
+  // tslint:disable-next-line:use-lifecycle-interface
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 }

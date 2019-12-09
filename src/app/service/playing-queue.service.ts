@@ -31,7 +31,7 @@ export class PlayingQueueService {
   addToQueue(song: Song) {
     song.isDisabled = true;
     const track = {
-      title: song.name,
+      title: song.title,
       link: song.url
     };
     if (this.queue[0].link === '') {

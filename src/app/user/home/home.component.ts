@@ -30,4 +30,9 @@ export class HomeComponent implements OnInit {
     });
   }
 
+  settimeout() {
+    $('.carousel').carousel({
+      interval: 5000
+    });
+  }
 }

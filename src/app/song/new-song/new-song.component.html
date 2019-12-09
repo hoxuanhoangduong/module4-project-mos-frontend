@@ -1,0 +1,79 @@
+<!--<ngb-carousel #carousel interval="2000" [pauseOnHover]="pauseOnHover" (slide)="onSlide($event)">-->
+<!--  <ng-template ngbSlide *ngFor="let img of images; index as i">-->
+<!--    <div class="carousel-caption">-->
+<!--      <h3>{{ description[i] }}</h3>-->
+<!--    </div>-->
+<!--    <a href="https://www.google.fr/?q=Number+{{i+1}}" target="_blank" rel="nofollow noopener noreferrer">-->
+<!--      <div class="picsum-img-wrapper">-->
+<!--        <img [src]="img" [alt]="description[i]" width="100%">-->
+<!--      </div>-->
+<!--    </a>-->
+<!--  </ng-template>-->
+<!--</ngb-carousel>-->
+<ng-container *ngIf="loading">
+  <app-spinner [type]="4"></app-spinner>
+</ng-container>
+<table class="table table-striped">
+  <thead>
+  <tr>
+    <th scope="col">#</th>
+    <th scope="col">Name</th>
+    <th scope="col">Release Date</th>
+    <th scope="col"></th>
+    <th scope="col"></th>
+    <th scope="col"></th>
+    <th scope="col"></th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let song of songList; index as i" [queryParams]="{id: song.id}" [routerLink]="['/song','detail']">
+    <th scope="row">{{ i + 1 }}</th>
+    <td>{{song.title}}</td>
+    <td>{{ song.releaseDate | date }}</td>
+    <td><span class="float-right"><i class="fas fa-headphones-alt"></i> {{song.listeningFrequency}}</span></td>
+    <td>
+      <ng-container *ngIf="!!currentUser">
+        <button (click)="likeSong(song, $event)" *ngIf="!song.liked" [disabled]="song.loadingLikeButton"
+                class="btn btn-outline-danger">
+          <span *ngIf="song.loadingLikeButton" aria-hidden="true" class="spinner-border spinner-border-sm"
+                role="status"></span>
+          <span *ngIf="!song.loadingLikeButton"><i class="far fa-heart"></i></span>
+        </button>
+        <button (click)="unlikeSong(song, $event)" *ngIf="song.liked" [disabled]="song.loadingLikeButton"
+                class="btn btn-outline-danger">
+          <span *ngIf="song.loadingLikeButton" aria-hidden="true" class="spinner-border spinner-border-sm"
+                role="status"></span>
+          <span *ngIf="!song.loadingLikeButton"><i class="fas fa-heart"></i></span>
+        </button>
+      </ng-container>
+    </td>
+    <td>
+      <button (click)="addToPlaying(song, $event)" [disabled]="song.isDisabled" class="btn btn-primary"><i
+        class="fas fa-play-circle"></i>
+      </button>
+    </td>
+    <td>
+      <!--      <ng-container *ngIf="!!currentUser">-->
+      <!--        <app-modal [action]="'addToPlaylist'" [title]="'Select a playlist to add'">-->
+      <!--          <app-add-song-to-playlist class="modal-body" [songId]="song.id" [playlistList]="playlistList"></app-add-song-to-playlist>-->
+      <!--          <app-create-playlist (createPlaylist)="refreshPlaylistList(song.id)" class="modal-footer"></app-create-playlist>-->
+      <!--        </app-modal>-->
+      <!--      </ng-container>-->
+    </td>
+  </tr>
+  </tbody>
+</table>
+<nav aria-label="...">
+  <ul class="pagination">
+    <li *ngIf="!first" class="page-item">
+      <a (click)="goToPage(pageNumber - 1, true)" aria-disabled="true" class="page-link" tabindex="-1">Previous</a>
+    </li>
+    <li *ngFor="let page of pages" class="page-item">
+      <a (click)="goToPage(page.pageNumber, true)" [class.active]="page.pageNumber === pageNumber" aria-disabled="true"
+         class="page-link" tabindex="-1">{{ page.pageNumber + 1 }}</a>
+    </li>
+    <li *ngIf="!last" class="page-item">
+      <a (click)="goToPage(pageNumber + 1, true)" aria-disabled="true" class="page-link" tabindex="-1">Next</a>
+    </li>
+  </ul>
+</nav>

@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {AuthService} from '../../service/auth.service';
@@ -6,23 +6,26 @@ import {UserService} from '../../service/user.service';
 import {HttpEvent, HttpEventType} from '@angular/common/http';
 import {Progress} from '../../model/progress';
 import {User} from '../../model/user.interface';
+import {Subscription} from 'rxjs';
 
 @Component({
-  selector: 'app-edit',
-  templateUrl: './update-profile.component.html',
-  styleUrls: ['./update-profile.component.scss']
+  selector: 'app-update-profile',
+  templateUrl: './update-profile.component.html'
 })
-export class UpdateProfileComponent implements OnInit {
+export class UpdateProfileComponent implements OnInit, OnDestroy {
   currentUser: User;
   updateForm: FormGroup;
-  loading = false;
+  loading: boolean;
   submitted = false;
   returnUrl: string;
-  error = false;
+  error: boolean;
   file: any;
   formData = new FormData();
   message: string;
+  isImageFileChosen = false;
+  imageFileName = '';
   progress: Progress = {value: 0};
+  subscription: Subscription = new Subscription();
 
   // tslint:disable-next-line:max-line-length
   constructor(private fb: FormBuilder, private route: ActivatedRoute, private router: Router, private authService: AuthService, private userService: UserService) {
@@ -50,6 +53,8 @@ export class UpdateProfileComponent implements OnInit {
   selectFile(event) {
     if (event.target.files.length > 0) {
       this.file = event.target.files[0];
+      this.isImageFileChosen = true;
+      this.imageFileName = event.target.files[0].name;
     }
   }
 
@@ -61,10 +66,10 @@ export class UpdateProfileComponent implements OnInit {
       case HttpEventType.ResponseHeader:
         console.log('Response header has been received!');
         break;
-      // case HttpEventType.UploadProgress:
-      //   progress.value = Math.round(event.loaded / event.total * 100);
-      //   console.log(`Uploaded! ${progress.value}%`);
-      //   break;
+      case HttpEventType.UploadProgress:
+        progress.value = Math.round(event.loaded / event.total * 100);
+        console.log(`Uploaded! ${progress.value}%`);
+        break;
       case HttpEventType.Response:
         console.log('Song successfully created!', event.body);
         const complete = setTimeout(() => {
@@ -80,14 +85,34 @@ export class UpdateProfileComponent implements OnInit {
   }
 
   onSubmit() {
-    this.submitted = true;
-    // this.formData.append('user', new Blob([JSON.stringify(this.updateForm.value)], {type: 'application/json'}));
-    this.userService.updateProfile(this.updateForm.value, this.currentUser.id).subscribe(
-      (event: HttpEvent<any>) => {
-        this.userService.getProfile();
-        if (this.displayProgress(event, this.progress)) {
-          this.error = false;
-          this.message = 'Profile updated successfully';
+    this.formData.append('avatar', this.file);
+    this.subscription.add(this.userService.updateProfile(this.updateForm.value).subscribe(
+      () => {
+        this.error = false;
+        this.message = 'Profile updated successfully';
+        if (this.isImageFileChosen) {
+          this.subscription.add(this.userService.uploadAvatar(this.formData).subscribe(
+            (event: HttpEvent<any>) => {
+              console.log(event);
+              if (this.displayProgress(event, this.progress)) {
+                this.error = false;
+                this.message = 'Avatar uploaded successfully';
+              }
+            },
+            error => {
+              console.log(error);
+              this.error = true;
+              this.message = 'Failed to upload avatar';
+            }, () => {
+              this.userService.setProfile();
+            }
+          ));
+        } else {
+          this.userService.getProfile().subscribe(
+            currentUser => {
+              this.currentUser = currentUser;
+            }
+          );
         }
       },
       error => {
@@ -95,12 +120,15 @@ export class UpdateProfileComponent implements OnInit {
         this.error = true;
         this.message = 'Failed to update profile';
       }
-    );
+    ));
   }
 
   navigate() {
     this.router.navigate(['/']);
   }
 
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
+
 }
-// Cannot read property 'username' bug

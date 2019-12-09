@@ -44,4 +44,28 @@ export class SongService {
   commentSong(songId: number, comment: Comment) {
     return this.http.post<any>(`${environment.apiUrl}/song?comment&song-id=${songId}`, comment);
   }
+
+  deleteComment(commentId: number) {
+    return this.http.delete<any>(`${environment.apiUrl}/song?comment&comment-id=${commentId}`);
+  }
+
+  deleteSong(id: number) {
+    return this.http.delete<any>(`${environment.apiUrl}/song/delete?id=${id}`);
+  }
+
+  likeSong(songId: number) {
+    return this.http.post<any>(`${environment.apiUrl}/song?like&song-id=${songId}`, {});
+  }
+
+  unlikeSong(songId: number) {
+    return this.http.post<any>(`${environment.apiUrl}/song?unlike&song-id=${songId}`, {});
+  }
+
+  getTop10SongsByFrequency() {
+    return this.http.get<any>(`${environment.apiUrl}/song/list-top?sort=listeningFrequency`);
+  }
+
+  getUserSongList() {
+    return this.http.get<any>(`${environment.apiUrl}/song/uploaded/list`);
+  }
 }
