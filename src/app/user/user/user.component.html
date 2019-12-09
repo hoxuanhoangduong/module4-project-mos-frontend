@@ -1,21 +1,22 @@
-<div class="fixed-top">
-  <app-navbar></app-navbar>
-</div>
-<div class="container-fluid" style="margin-top:7rem">
-  <div class="row">
-    <div class="col-sm-1">
-      <app-sidebar></app-sidebar>
-    </div>
-    <div class="col-sm-11">
-      <router-outlet></router-outlet>
+<div>
+  <div class="fixed-top">
+    <app-navbar></app-navbar>
+  </div>
+  <div style="height: 100px"></div>
+  <div class="container">
+    <div class="row" style="margin-bottom: 8rem">
+      <div class="col-sm-9 px-0" style="margin-top: 3rem">
+        <router-outlet class="col-sm-9 px-0"></router-outlet>
+      </div>
+      <app-sidebar class="col-sm-3"></app-sidebar>
     </div>
   </div>
-</div>
-<div class="fixed-bottom">
-  <mat-advanced-audio-player [displayPlaylist]="msaapDisplayPlayList"
-                             [displayTitle]="msaapDisplayTitle"
-                             [displayVolumeControls]="msaapDisplayVolumeControls"
-                             [expanded]="expanded"
-                             [pageSizeOptions]="msaapPageSizeOptions"
-                             [playlist]="msaapPlaylist"></mat-advanced-audio-player>
+  <div class="fixed-bottom">
+    <mat-advanced-audio-player [displayPlaylist]="msaapDisplayPlayList"
+                               [displayTitle]="msaapDisplayTitle"
+                               [displayVolumeControls]="msaapDisplayVolumeControls"
+                               [expanded]="expanded"
+                               [pageSizeOptions]="msaapPageSizeOptions"
+                               [playlist]="msaapPlaylist"></mat-advanced-audio-player>
+  </div>
 </div>

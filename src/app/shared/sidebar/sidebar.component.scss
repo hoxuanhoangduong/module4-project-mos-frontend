@@ -1,0 +1,15 @@
+img.user-avatar {
+  height: 3rem;
+  width: 3rem;
+  vertical-align: middle;
+  border: 0.1rem solid black;
+}
+
+li, a {
+  background: transparent;
+  cursor: pointer;
+}
+
+li:hover {
+  background-color: #c7c7c7;
+}

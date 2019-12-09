@@ -1,0 +1,15 @@
+<div>
+  <h2 class="text-center"> Top chart </h2>
+  <ul *ngFor="let song of songList; index as i" class="list-group">
+    <li [queryParams]="{id: song.id}" [routerLink]="['/song','detail']" class="list-group-item">
+      <img [src]="(song.artists.length > 0)?song.artists[0].avatarUrl:'../../../assets/images/avatar.jpg'" alt=""
+           class="user-avatar">
+      <a>{{song.title}}</a>
+      <span class="float-right"><i class="fas fa-headphones-alt"></i> {{song.listeningFrequency}}</span>
+    </li>
+  </ul>
+</div>
+<div *ngIf="message" class="alert alert-danger mt-3 mb-0">{{ message }}</div>
+
+
+

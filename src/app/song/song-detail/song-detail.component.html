@@ -1,6 +1,6 @@
 <ng-container *ngIf="song">
   <div>
-    <div class="card">
+    <div class="card" style="background: transparent">
       <h4>Song Info</h4>
       <div class="card-body">
         <h6 class="d-inline">Song : </h6><span>{{song.title}}</span>
@@ -34,6 +34,7 @@
         <ul>
           <li *ngFor="let artist of artistList; index as i">
             <img [queryParams]="{id: artist.id}" [routerLink]="['/artist/detail']" [src]="artist.avatarUrl" alt=""
+                 id="artist-img"
                  class="mx-1">
             <a [queryParams]="{id: artist.id}" [routerLink]="['/artist/detail']">{{artist.name}}</a>
           </li>
