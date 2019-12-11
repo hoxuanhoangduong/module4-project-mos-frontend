@@ -59,7 +59,7 @@ export class SongDetailComponent implements OnInit, OnDestroy {
             window.scroll(0, 0);
             this.song = result;
             this.artistList = this.song.artists;
-            // this.commentList = this.song.comments;
+            this.commentList = this.song.comments;
             this.checkDisabledSong(this.song);
           }, error => {
             this.message = 'Cannot retrieve Song . Cause: ' + error.message;
