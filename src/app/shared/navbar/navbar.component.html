@@ -5,11 +5,12 @@
     </div>
     <nav id="nav-menu-container">
       <ul class="nav-menu">
-        <li><i class="fas fa-home" style="color: white"></i><a href="#">HOME</a></li>
-        <li><i class="fa fa-music" style="color: white"></i><a [routerLink]="['/song','list']" class="nav-link">SONG</a>
+        <li><i class="fas fa-home"></i><a href="#" style="color: #060c22">HOME</a></li>
+        <li><i class="fa fa-music"></i><a [routerLink]="['/song','list']" class="nav-link"
+                                          style="color: #060c22">SONG</a></li>
+        <li><i class="fa fa-sign-language"></i><a [routerLink]="['/artist','list']" style="color: #060c22">ARTIST</a>
         </li>
-        <li><i class="fa fa-sign-language" style="color: white"></i><a [routerLink]="['/artist','list']">ARTIST</a></li>
-        <li><i class="fas fa-folder" style="color: white"></i><a>ALBUM</a></li>
+        <li><i class="fas fa-folder"></i><a style="color: #060c22">ALBUM</a></li>
 
         <li *ngIf="!currentUser" class="buy-tickets" style="color: white">
           <a (click)="openLoginModal();" data-toggle="modal" href="javascript:void(0)"><i class="fas fa-user"></i>LOGIN</a>
@@ -17,7 +18,8 @@
         </li>
 
         <li *ngIf="!!currentUser" id="divaa1">
-          <i class="fa fa-user" style="color: antiquewhite;height: 5px"><a>{{ currentUser.username }}</a></i>
+          <i class="fa fa-user" style="color: #060c22;height: 5px"><a
+            style="color: #060c22">{{ currentUser.username }}</a></i>
           <input [routerLink]="['/song','upload']" id="btna1" type="button" value="Upload Song">
           <input [routerLink]="['/uploaded']" id="btna2" type="button" value="Uploaded Song">
           <input [routerLink]="['/profile']" id="btna3" type="button" value="User Profile">
