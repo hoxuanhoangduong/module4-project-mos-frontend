@@ -30,24 +30,24 @@ export class UploadedSongListComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    // this.loading = true;
-    // this.subscription.add(this.songService.getUserSongList().subscribe(
-    //   result => {
-    //     if (result != null) {
-    //       this.songList = result.content;
-    //       this.songList.forEach((value, index) => {
-    //         this.songList[index].isDisabled = false;
-    //       });
-    //       for (const song of this.songList) {
-    //         this.checkDisabledSong(song);
-    //       }
-    //     }
-    //   }, error => {
-    //     this.message = 'Cannot retrieve song list. Cause: ' + error.songsMessage;
-    //   }, () => {
-    //     this.loading = false;
-    //   }
-    // ));
+    this.loading = true;
+    this.subscription.add(this.songService.getUserSongList().subscribe(
+      result => {
+        if (result != null) {
+          this.songList = result.content;
+          this.songList.forEach((value, index) => {
+            this.songList[index].isDisabled = false;
+          });
+          for (const song of this.songList) {
+            this.checkDisabledSong(song);
+          }
+        }
+      }, error => {
+        this.message = 'Cannot retrieve song list. Cause: ' + error.songsMessage;
+      }, () => {
+        this.loading = false;
+      }
+    ));
   }
 
   addToPlaying(song: Song, event) {
