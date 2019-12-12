@@ -11,10 +11,11 @@ import {SongListComponent} from './song-list/song-list.component';
 import {SongDetailComponent} from './song-detail/song-detail.component';
 import {NewSongComponent} from './new-song/new-song.component';
 import {SharedModule} from '../shared/shared.module';
+import {SongEditComponent} from './song-edit/song-edit.component';
 
 
 @NgModule({
-  declarations: [SongComponent, UploadSongComponent, SongListComponent, SongDetailComponent, NewSongComponent],
+  declarations: [SongComponent, UploadSongComponent, SongListComponent, SongDetailComponent, NewSongComponent, SongEditComponent],
   imports: [
     CommonModule,
     SongRoutingModule,

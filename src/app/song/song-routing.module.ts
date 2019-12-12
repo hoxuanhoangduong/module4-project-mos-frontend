@@ -4,6 +4,7 @@ import {SongComponent} from './song/song.component';
 import {UploadSongComponent} from './upload-song/upload-song.component';
 import {SongListComponent} from './song-list/song-list.component';
 import {SongDetailComponent} from './song-detail/song-detail.component';
+import {SongEditComponent} from './song-edit/song-edit.component';
 
 
 const routes: Routes = [
@@ -27,6 +28,10 @@ const routes: Routes = [
       {
         path: 'detail',
         component: SongDetailComponent
+      },
+      {
+        path: 'edit',
+        component: SongEditComponent
       }
     ]
   }
