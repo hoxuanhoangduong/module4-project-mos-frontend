@@ -1,0 +1,27 @@
+<ng-template #content let-modal>
+  <form (ngSubmit)="onSubmit()" [formGroup]="editPlaylistForm">
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Edit playlist</h4>
+      <button (click)="modal.dismiss('Cross click')" aria-label="Close" class="close" type="button">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <label for="playlist">Playlist Title</label>
+        <div class="input-group">
+          <input class="form-control" formControlName="name" id="playlist" placeholder="Enter playlist title">
+        </div>
+      </div>
+      <div *ngIf="message" [class.alert-danger]="error" [class.alert-success]="!error"
+           class="alert mt-3 mb-0">{{message}}</div>
+    </div>
+    <div class="modal-footer">
+      <button [disabled]="loading || this.editPlaylistForm.get('name').hasError('required')" class="btn btn-primary">
+        <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+        Save
+      </button>
+    </div>
+  </form>
+</ng-template>
+<button (click)="edit(content)" class="btn btn-danger" type="button"><i class="fas fa-edit"></i></button>

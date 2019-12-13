@@ -24,7 +24,8 @@ const routes: Routes = [
       {path: 'song', loadChildren: () => import('../song/song.module').then(mod => mod.SongModule)},
       {path: 'artist', loadChildren: () => import('../artist/artist.module').then(mod => mod.ArtistModule)},
       {path: 'uploaded', canActivate: [AuthGuard], component: UploadedSongListComponent},
-      {path: 'search', component: SearchComponent}
+      {path: 'search', component: SearchComponent},
+      {path: 'playlist', loadChildren: () => import('../playlist/playlist.module').then(mod => mod.PlaylistModule)}
     ]
   }
 ];

@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpEvent} from '@angular/common/http';
 import {Song} from '../model/song';
 import {Observable} from 'rxjs';
 import {environment} from '../../environments/environment.prod';
@@ -67,5 +67,10 @@ export class SongService {
 
   getUserSongList() {
     return this.http.get<any>(`${environment.apiUrl}/song/uploaded/list`);
+  }
+
+  deletePlaylistSong(songId: number, playlistId: number): Observable<HttpEvent<any>> {
+    return this.http.put<any>
+    (`${environment.apiUrl}/playlist/remove-song?song-id=${songId}&playlist-id=${playlistId}`, {responseType: 'text'});
   }
 }
