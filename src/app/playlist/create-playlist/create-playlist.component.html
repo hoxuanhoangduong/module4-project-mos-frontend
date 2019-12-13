@@ -1,0 +1,27 @@
+<ng-template #content let-modal>
+  <form (ngSubmit)="onSubmit()" [formGroup]="createPlaylistForm">
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Create playlist</h4>
+      <button (click)="close()" aria-label="Close" class="close" type="button">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <label for="playlist">Playlist Title</label>
+        <div class="input-group">
+          <input class="form-control" formControlName="name" id="playlist" placeholder="Enter playlist title">
+        </div>
+      </div>
+      <div *ngIf="flagMessage == 1" [class.alert-danger]="error" [class.alert-success]="!error"
+           class="alert mt-3 mb-0">{{message}}</div>
+    </div>
+    <div class="modal-footer">
+      <button [disabled]="loading || this.createPlaylistForm.get('name').hasError('required')" class="btn btn-primary">
+        <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+        Save
+      </button>
+    </div>
+  </form>
+</ng-template>
+<button (click)="open(content)" class="btn btn-lg btn-primary my-3">Create new playlist</button>

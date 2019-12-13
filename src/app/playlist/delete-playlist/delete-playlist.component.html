@@ -1,0 +1,20 @@
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <button (click)="modal.dismiss('Cross click')" aria-label="Close" class="close" type="button">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <span *ngIf="!deleted">Do you want to delete playlist {{ playlistName }}?</span>
+    <div *ngIf="message" [class.alert-danger]="error" [class.alert-success]="!error"
+         class="alert mt-3 mb-0">{{message}}</div>
+  </div>
+  <div *ngIf="flag" class="modal-footer">
+    <button (click)=onSubmit() [disabled]="loading || deleted" class="btn btn-primary">
+      <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+      Delete
+    </button>
+  </div>
+</ng-template>
+<button (click)="delete(content)" class="btn btn-danger" type="button"><i class="fas fa-trash-alt"></i></button>
+
