@@ -83,8 +83,8 @@ export class NavbarComponent implements OnInit {
 
   ngOnInit() {
     // localStorage.clear();
-    console.log(localStorage);
-    console.log(this.currentUser);
+    // console.log(localStorage);
+    // console.log(this.currentUser);
     this.loginForm = this.fb.group({
       username: ['', Validators.required],
       password: ['', Validators.required]
