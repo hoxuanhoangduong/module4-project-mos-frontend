@@ -12,12 +12,14 @@ import {PlayingQueueService} from '../../service/playing-queue.service';
 })
 export class UserComponent implements OnInit {
   currentUser: UserToken;
+  isShown = false;
 
   @Input() msaapDisplayTitle = true;
   @Input() msaapDisplayPlayList = true;
-  @Input() msaapPageSizeOptions = [6];
+  @Input() msaapPageSizeOptions = [4, 6];
   @Input() msaapDisplayVolumeControls = true;
   @Input() expanded = false;
+  @Input() autoPlay: true;
 
 // Material Style Advance Audio Player Playlist
   msaapPlaylist: Track[] = [
@@ -48,6 +50,13 @@ export class UserComponent implements OnInit {
       }
     );
   }
+
+  toggleShow() {
+
+    this.isShown = !this.isShown;
+
+  }
+
 
   ngOnInit() {
   }

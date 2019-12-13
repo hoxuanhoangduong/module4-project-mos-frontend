@@ -11,11 +11,16 @@
     </div>
   </div>
   <div class="fixed-bottom">
-    <mat-advanced-audio-player [displayPlaylist]="msaapDisplayPlayList"
-                               [displayTitle]="msaapDisplayTitle"
-                               [displayVolumeControls]="msaapDisplayVolumeControls"
-                               [expanded]="expanded"
-                               [pageSizeOptions]="msaapPageSizeOptions"
-                               [playlist]="msaapPlaylist"></mat-advanced-audio-player>
+    <button (click)="toggleShow()" type="checkbox">show/hide</button>
+
+    <div *ngIf="isShown" class="row container-fluid" id="divshow">
+      <mat-advanced-audio-player [autoPlay]="true"
+                                 [displayPlaylist]="msaapDisplayPlayList"
+                                 [displayTitle]="msaapDisplayTitle"
+                                 [displayVolumeControls]="msaapDisplayVolumeControls"
+                                 [expanded]="expanded"
+                                 [pageSizeOptions]="msaapPageSizeOptions"
+                                 [playlist]="msaapPlaylist"></mat-advanced-audio-player>
+    </div>
   </div>
 </div>
