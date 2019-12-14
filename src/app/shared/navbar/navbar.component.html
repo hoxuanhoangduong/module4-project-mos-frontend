@@ -9,7 +9,7 @@
         <li><i class="fa fa-music" style="color: white"></i><a [routerLink]="['/song','list']" class="nav-link">SONG</a>
         </li>
         <li><i class="fa fa-sign-language" style="color: white"></i><a [routerLink]="['/artist','list']">ARTIST</a></li>
-        <li><i class="fas fa-folder" style="color: white"></i><a>ALBUM</a></li>
+<!--        <li><i class="fas fa-folder" style="color: white"></i><a>ALBUM</a></li>-->
         <li><i class="fas fa-folder" style="color: white"></i><a [routerLink]="['/playlist','list']">PLAYLIST</a></li>
         <li *ngIf="!currentUser" class="buy-tickets" style="color: white">
           <a (click)="openLoginModal();" data-toggle="modal" href="javascript:void(0)"><i class="fas fa-user"></i>LOGIN</a>
