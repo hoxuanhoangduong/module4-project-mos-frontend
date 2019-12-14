@@ -12,7 +12,7 @@ import {PlayingQueueService} from '../../service/playing-queue.service';
 })
 export class UserComponent implements OnInit {
   currentUser: UserToken;
-  isShown = false;
+  isShown = true;
 
   @Input() msaapDisplayTitle = true;
   @Input() msaapDisplayPlayList = true;
