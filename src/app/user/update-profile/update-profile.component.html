@@ -1,0 +1,100 @@
+<h3 class="text-center">Update Profile</h3>
+<h3>User :  {{currentUser.username}}</h3>
+<form (ngSubmit)="onSubmit()" *ngIf="!!currentUser" [formGroup]="updateForm">
+  <div class="form-group">
+    <label for="password"><i class="fas fa-key"></i> Password</label>
+    <input class="form-control" formControlName="password" id="password" type="password"/>
+    <div *ngIf="updateForm.get('password').hasError('required') && updateForm.get('password').touched"
+         class="alert alert-danger" role="alert">
+      Password must be filled
+    </div>
+    <div *ngIf="updateForm.get('password').hasError('minlength') && updateForm.get('password').touched"
+         class="alert alert-danger" role="alert">
+      Password must have at least 6 characters
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="firstName"><i class="fas fa-user-tie"></i> First Name</label>
+    <input class="form-control" formControlName="firstName" id="firstName" type="text"/>
+    <div *ngIf="updateForm.get('firstName').hasError('required') && updateForm.get('firstName').touched"
+         class="alert alert-danger" role="alert">
+      First name must be filled
+    </div>
+    <div *ngIf="updateForm.get('firstName').hasError('minlength') && updateForm.get('firstName').touched"
+         class="alert alert-danger" role="alert">
+      First name must have at least 2 characters
+    </div>
+    <div *ngIf="updateForm.get('firstName').hasError('maxlength') && updateForm.get('firstName').touched"
+         class="alert alert-danger" role="alert">
+      First name can only contain up to 20 characters
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="lastName"><i class="fas fa-user-tie"></i> Last Name</label>
+    <input class="form-control" formControlName="lastName" id="lastName" type="text"/>
+    <div *ngIf="updateForm.get('lastName').hasError('required') && updateForm.get('lastName').touched"
+         class="alert alert-danger" role="alert">
+      Last name must be filled
+    </div>
+    <div *ngIf="updateForm.get('lastName').hasError('minlength') && updateForm.get('lastName').touched"
+         class="alert alert-danger" role="alert">
+      Last name must have at least 2 characters
+    </div>
+    <div *ngIf="updateForm.get('lastName').hasError('maxlength') && updateForm.get('lastName').touched"
+         class="alert alert-danger" role="alert">
+      First name can only contain up to 30 characters
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label>
+      <i class="fas fa-restroom"></i> Gender
+      <input [value]=true formControlName="gender" type="radio">
+      <span>male</span>
+    </label>
+    <label>
+      <input [value]=false formControlName="gender" type="radio">
+      <span>female</span>
+    </label>
+  </div>
+
+  <div class="form-group">
+    <label for="birthDate"><i class="fas fa-table"></i> BirthDate</label>
+    <input [value]="currentUser.birthDate | date:'yyyy-MM-dd'" class="form-control" formControlName="birthDate"
+           id="birthDate" placeholder="yyyy-mm-dd" type="date">
+  </div>
+
+  <div class="form-group">
+    <label for="phoneNumber"><i class="fas fa-phone"></i> PhoneNumber</label>
+    <input class="form-control" formControlName="phoneNumber" id="phoneNumber" type="text"/>
+  </div>
+
+  <div class="form-group">
+    <label for="email"><i class="fas fa-envelope-square"> Email</i></label>
+    <input class="form-control" formControlName="email" id="email" type="text"/>
+    <div *ngIf="updateForm.get('email').hasError('required') && updateForm.get('email').touched"
+         class="alert alert-danger" role="alert">
+      Email must be filled!
+    </div>
+    <div *ngIf="updateForm.get('email').hasError('email') && updateForm.get('email').touched"
+         class="alert alert-danger" role="alert">
+      Not a valid Email
+    </div>
+  </div>
+
+  <button [disabled]="loading" class="btn btn-primary">
+    <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+    Update
+  </button>
+  <!--  <div *ngIf="progress.value > 0" class="progress form-group">-->
+  <!--    <div [style.width.%]="progress.value" class="progress-bar progress-bar-striped bg-success" role="progressbar">-->
+  <!--    </div>-->
+  <!--  </div>-->
+  <div *ngIf="message" [class.alert-danger]="error" [class.alert-success]="!error"
+       class="alert mt-3 mb-0" style="color: red">{{message}}
+  </div>
+</form>
+
+<pre>{{updateForm.value | json}}</pre>
